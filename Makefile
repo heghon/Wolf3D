@@ -10,6 +10,12 @@
 #                                                                              #
 # **************************************************************************** #
 
+GREEN = \033[0;32m
+BLUE = \033[1;34m
+YELLOW = \033[1;33m
+WHITE = \033[1;37m
+OK = $(GREEN)-OK-$(WHITE)
+
 NAME = wolf3d
 
 SRC_FILE = ./src/
@@ -43,6 +49,7 @@ all : $(NAME)
 $(NAME) : $(OBJ)
 	@ make -C./libft/
 	@ $(CC) $(LFLAGS) $(OBJ) -o $@ $(FLAGS)
+	@echo "$(BLUE)-$(NAME)	$(OK)"
 
 $(OBJ_FILE)%.o : $(SRC_FILE)%.c
 	@ mkdir $(OBJ_FILE) 2> /dev/null || true
@@ -52,12 +59,21 @@ clean :
 	@ make clean -C ./libft/
 	@ rm -rf $(OBJ)
 	@ rmdir $(OBJ_FILE) 2> /dev/null || true
+	@echo "$(BLUE)-CLEAN		$(OK)"
 
 fclean : clean
 	@ make fclean -C ./libft/
 	@ rm -f $(NAME)
+	@echo "$(BLUE)-FCLEAN		$(OK)"
 
 re	: fclean all
+
+push:
+	@git add -A
+	@git commit -m "make push"
+	@echo "\n$(BLUE)-COMMIT	$(OK)"
+	@git push origin sseneca
+	@echo "\n$(BLUE)-PUSH	$(OK)"
 
 test : re
 	@ ./$(NAME) test_map
