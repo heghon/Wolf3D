@@ -22,13 +22,11 @@ SRC_FILE = ./src/
 OBJ_FILE = ./obj/
 
 SRCS =	main.c \
-		key_handler.c \
 		init.c \
 		map_handler.c \
 		drawing_handler.c \
-		launch_rays.c \
-		direction_moves.c \
-		special_moves.c
+		launch_rays.c
+
 
 OBJS = $(SRCS:.c=.o)
 
@@ -36,7 +34,7 @@ SRC = $(addprefix $(SRC_FILE),$(SRCS))
 OBJ = $(addprefix $(OBJ_FILE),$(OBJS))
 
 FLAGS = -lmlx -framework OpenGL -framework AppKit
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS =# -Wall -Wextra -Werror
 IFLAGS = -I ./inc/
 LFLAGS = ./libft/libft.a
 

@@ -10,8 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/wolf3d.h"
+#include "../inc/wolf3d.h"
 #include <unistd.h>
+#include <fcntl.h>
+#include "../libft/libft.h"
+#include <stdlib.h>
 
 static int	fill_map(t_map *map, char *line)
 {

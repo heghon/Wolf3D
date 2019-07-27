@@ -13,6 +13,8 @@
 #ifndef WOLF3D_H
 # define WOLF3D_H
 
+#include "wolf3d_struct.h"
+
 int		key_handler(int key, void *param);
 void	init(t_data *data);
 void	function_problem(int mode);
@@ -21,11 +23,12 @@ void	launch_rays(t_data *data);
 int		loop_handler(t_data *data);
 void	drawing_handler(int size, int start, int stop, t_data *data);
 void	pixel_put(t_data *data, int size, int i, unsigned int c);
+/*
 void	forward_move(t_data *data);
 void	backward_move(t_data *data);
 void	right_move(t_data *data);
 void	left_move(t_data *data);
 void	jump_handler(t_data *data);
 void	crouch_handler(t_data *data);
-
+*/
 #endif

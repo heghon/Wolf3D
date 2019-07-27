@@ -10,12 +10,12 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/wolf3d.h"
-#include "../includes/wolf3d_struct.h"
-#include "../includes/wolf3d_define.h"
+#include "../inc/wolf3d.h"
+#include "../inc/wolf3d_define.h"
 #include "../libft/libft.h"
 #include <math.h>
 #include <time.h>
+#include <mlx.h>
 
 static void	init_tables(t_tables *tables)
 {

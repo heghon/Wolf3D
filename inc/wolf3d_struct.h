@@ -59,6 +59,9 @@ typedef	struct		s_player
 	int				up_move;
 	int				down_move;
 	int				z;
+	int				fov;
+	int				x;
+	int				y;
 }					t_player;
 
 typedef struct		s_mlx
@@ -86,6 +89,10 @@ typedef struct		s_ray
 	float			side[2];
 	float			delta[2];
 	float			pos[2];
+	int				nbr;
+	float			angle_inc;
+	int				xa;
+	int				ya;
 }					t_ray;
 
 typedef struct		s_map

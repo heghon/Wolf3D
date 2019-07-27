@@ -10,7 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/wolf3d.h"
+#include "../inc/wolf3d.h"
+#include "../inc/wolf3d_define.h"
 #include "../libft/libft.h"
 #include <math.h>
 

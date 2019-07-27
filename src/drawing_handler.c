@@ -11,10 +11,8 @@
 /* ************************************************************************** */
 
 #include "../inc/wolf3d.h"
-#include "../inc/wolf3d_struct.h"
 #include "../inc/wolf3d_define.h"
 #include "../libft/libft.h"
-
 
 void				pixel_put(t_data *data, int size, int i, unsigned int c)
 {
@@ -30,15 +28,16 @@ static unsigned int	find_color(t_player *player, t_ray *ray, t_color *color)
 {
 	int	angle;
 
-	angle = player.angle + (player.fov / 2) - (ray.nbr * ray.angle_inc);
+	angle = player->angle + (player->fov / 2) - (ray->nbr * ray->angle_inc);
 	if (angle >= 0 && angle <= 180 && ray->hit == 'h')
 		return (color->first_color);
 	if (angle >= 180 && angle <= 360 && ray->hit == 'h')
 		return (color->second_color);
 	if (angle >= 270 && angle <= 90 && ray->hit == 'v')
 		return (color->third_color);
-	if (angle >= 90 && angle <= 270 && ray->hit == 'v')
-		return (color->fourth_color);
+	//if (angle >= 90 && angle <= 270 && ray->hit == 'v')
+	return (color->fourth_color);
+
 }
 
 void				drawing_handler(int size, int start, int stop, t_data *data)
