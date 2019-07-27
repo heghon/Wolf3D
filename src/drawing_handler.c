@@ -22,11 +22,8 @@ void				pixel_put(t_data *data, int size, int i, unsigned int c)
 
 	printf("1");
 	x = (size * 4) + (i * data->mlx.s_line);
-	printf("2");
 	data->mlx.pic[x] = c;
-	printf("3");
 	data->mlx.pic[x + 1] = c >> 8;
-	printf("4");
 	data->mlx.pic[x + 2] = c >> 16;
 	printf("5\n");
 }
@@ -52,13 +49,16 @@ void				drawing_handler(int size, int start, int stop, t_data *data)
 	int				i;
 
 	i = -1;
+	printf("ciel\n");
 	while (++i < start + data->player.z)
 		pixel_put(data, size, i, data->color.sky_color);
 	i -= 1;
+	printf("mur\n");
 	while(++i <= stop + data->player.z && i < PROJ_PLANE_H)
 		pixel_put(data, size, i,
 				find_color(&data->player, &data->ray, &data->color));
 	i -= 1;
+	printf("sol\n");
 	while (++i < PROJ_PLANE_H)
 		pixel_put(data, size, i, data->color.ground_color);
 }
