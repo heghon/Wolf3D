@@ -69,7 +69,7 @@ int				main(int ac, char **av)
 	map_handler(&data.map, av[1]);
 	init(&data);
 	data.mlx.win = mlx_new_window(data.mlx.ptr, WIN_L, WIN_H, "WOLFENSTEIN");
-	//mlx_loop_hook(data.mlx.win, loop_handler, &data);
+	mlx_loop_hook(data.mlx.win, loop_handler, &data);
 	//mlx_hook(data.mlx.win, 2, 5, key_handler, (void*)0);
 	//mlx_hook(data.mlx.win, 17, 0L, close_window, (void*)0);
 	mlx_loop(data.mlx.ptr);

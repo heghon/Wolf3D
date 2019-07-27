@@ -46,7 +46,7 @@ all : $(NAME)
 
 $(NAME) : $(OBJ)
 	@ make -C./libft/
-	@ $(CC) $(LFLAGS) $(OBJ) -o $@ $(FLAGS)
+	@ $(CC) $(LFLAGS) $(OBJ) -o $@ $(FLAGS) -fsanitize=address
 	@echo "$(BLUE)-$(NAME)	$(OK)"
 
 $(OBJ_FILE)%.o : $(SRC_FILE)%.c

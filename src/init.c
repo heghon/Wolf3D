@@ -54,7 +54,7 @@ static void	init_player(t_player *player)
 	player->pos[Y] = 200;
 	player->dir[X] = -1;
 	player->dir[Y] = 0;
-	player->z = 0;
+	player->z = PLAYER_H;
 	player->plane[X] = 0;
 	player->plane[Y] = 0.66;
 	player->turn_speed = 0.1;
@@ -67,7 +67,7 @@ static void	init_player(t_player *player)
 	player->down_move = 0;
 	player->jump_state = 0;
 	player->crouch_state = 0;
-
+	player->fov = 60;
 }
 
 void		init(t_data *data)
