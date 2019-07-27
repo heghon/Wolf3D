@@ -6,12 +6,13 @@
 /*   By: bmenant <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 15:09:48 by bmenant           #+#    #+#             */
-/*   Updated: 2019/07/27 09:40:28 by bmenant          ###   ########.fr       */
+/*   Updated: 2019/07/27 15:07:32 by bmenant          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/wolf3d.h"
 #include "../inc/wolf3d_define.h"
+#include "../inc/wolf3d_struct.h"
 #include "../libft/libft.h"
 #include <math.h>
 
@@ -46,17 +47,16 @@ static int	vertical_check(t_ray ray, t_player player, int **map)
 	a[0] = ft_round_down(player.x, GRID_S) * GRID_S;
 	a[0] += (angle > 90 && angle < 270 ? -1 : GRID_S);
 	a[1] = player.y + (player.x - a[0]) * tan(ft_arc_to_rad(angle));
-	//if (map[ft_round_down(a[1], GRID_S)][ft_round_down(a[0], GRID_S)] == 1)
-	//	return ((ft_absolute(player.y - a[1]) / sin(angle)) * cos(beta));
+	if (map[ft_round_down(a[1], GRID_S)][ft_round_down(a[0], GRID_S)] == 1)
+		return ((ft_absolute(player.y - a[1]) / sin(angle)) * cos(beta));
 	while (!(a[0] < 0 || a[1] < 0) && (map[a[1] / GRID_S][a[0] / GRID_S] != 1))
 	{
 		//printf("4\n");
 		a[0] += ray.xa;
 		a[1] += ray.ya;
 	}
-	return ((ft_absolute(player.y - a[1]) / sin(angle)) * cos(beta));
+	return ((ft_absolute((player.y - a[1]) / sin(ft_arc_to_rad(angle)) * cos(ft_arc_to_rad(beta)))));
 }
-
 static int	horizontal_check(t_ray ray, t_player player, int **map)
 {
 	int	a[2];
@@ -74,8 +74,8 @@ static int	horizontal_check(t_ray ray, t_player player, int **map)
 	a[1] += (angle < 180 && angle ? -1 : GRID_S);
 	a[0] = player.x + (player.y - a[1]) / tan(ft_arc_to_rad(angle));
 	//printf("3 a0=%d a1=%d\n", a[0], a[1]);
-//	if (map[ft_round_down(a[1], GRID_S)][ft_round_down(a[0], GRID_S)] == 1)
-//		return ((ft_absolute(player.x - a[0]) / cos(angle)) * cos(beta));
+	//	if (map[ft_round_down(a[1], GRID_S)][ft_round_down(a[0], GRID_S)] == 1)
+	//		return ((ft_absolute(player.x - a[0]) / cos(angle)) * cos(beta));
 	while (!(a[0] < 0 || a[1] < 0) && (map[a[1] / GRID_S][a[0] / GRID_S] != 1))
 	{
 		//printf("4 div1=%d, div0=%d\n", a[1] / GRID_S, a[0] / GRID_S);
@@ -87,7 +87,7 @@ static int	horizontal_check(t_ray ray, t_player player, int **map)
 		//	return (0);
 	}
 	//printf("6\n");
-	return (ft_absolute(player.x - a[0]) / cos(ft_arc_to_rad(angle)) * cos(ft_arc_to_rad(beta)));
+	return (ft_absolute((player.x - a[0]) / cos(ft_arc_to_rad(angle)) * cos(ft_arc_to_rad(beta))));
 }
 
 void		launch_rays(t_data *data)

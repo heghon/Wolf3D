@@ -6,7 +6,7 @@
 /*   By: bmenant <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/05 13:03:36 by bmenant           #+#    #+#             */
-/*   Updated: 2019/07/27 11:33:30 by bmenant          ###   ########.fr       */
+/*   Updated: 2019/07/27 15:19:23 by bmenant          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,15 @@ void				pixel_put(t_data *data, int size, int i, unsigned int c)
 {
 	int	x;
 
-	printf("1");
-	x = (size * 4) + (i * data->mlx.s_line);
+	x = (i * data->mlx.s_line) + data->ray.nbr * 4;
+	printf("%d\n", x);
 	data->mlx.pic[x] = c;
 	data->mlx.pic[x + 1] = c >> 8;
 	data->mlx.pic[x + 2] = c >> 16;
-	printf("5\n");
+	//printf("5\n");
 }
 
-static unsigned int	find_color(t_player *player, t_ray *ray, t_color *color)
+/*static unsigned int	find_color(t_player *player, t_ray *ray, t_color *color)
 {
 	int	angle;
 
@@ -42,23 +42,23 @@ static unsigned int	find_color(t_player *player, t_ray *ray, t_color *color)
 	//if (angle >= 90 && angle <= 270 && ray->hit == 'v')
 	return (color->fourth_color);
 
-}
+}*/
 
 void				drawing_handler(int size, int start, int stop, t_data *data)
 {
 	int				i;
 
 	i = -1;
-	printf("ciel\n");
+	//printf("size = %d\n", size);
+	//printf("ciel\n");
 	while (++i < start + data->player.z)
 		pixel_put(data, size, i, data->color.sky_color);
 	i -= 1;
-	printf("mur\n");
+	//printf("mur a %d\n", i);
 	while(++i <= stop + data->player.z && i < PROJ_PLANE_H)
-		pixel_put(data, size, i,
-				find_color(&data->player, &data->ray, &data->color));
+		pixel_put(data, size, i, data->color.fourth_color);
 	i -= 1;
-	printf("sol\n");
+	//printf("sola %d\n",i);
 	while (++i < PROJ_PLANE_H)
 		pixel_put(data, size, i, data->color.ground_color);
 }
