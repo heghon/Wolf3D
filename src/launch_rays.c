@@ -70,8 +70,9 @@ static int	vertical_check(t_ray ray, t_player player, t_map map)
 		printf("5 ");
 	}
 	printf("6 %f %f %f\n", (sin(ft_arc_to_rad(angle)) * cos(ft_arc_to_rad(beta))), sin(ft_arc_to_rad(angle)), cos(ft_arc_to_rad(beta)));
-	return (fabs( (player.pos[Y] - a[1]) / sin(ft_arc_to_rad(angle)) ) * cos(ft_arc_to_rad(beta)) );
+	return (fabs( (player.pos[X] - a[0]) / cos(ft_arc_to_rad(angle)) ) * cos(ft_arc_to_rad(beta)) );
 }
+
 static int	horizontal_check(t_ray ray, t_player player, t_map map)
 {
 	int	a[2];

@@ -50,8 +50,8 @@ static void	init_mlx(t_mlx *mlx)
 static void	init_player(t_player *player)
 {
 	player->angle = 0;
-	player->pos[X] = 1792;//384;//32767;//32767;
-	player->pos[Y] = 384;//640;//1;//1;
+	player->pos[X] = 384;//1792;//384;//32767;//32767;
+	player->pos[Y] = 384;//384;//640;//1;//1;
 	player->dir[X] = -1;
 	player->dir[Y] = 0;
 	player->z = PLAYER_H;
