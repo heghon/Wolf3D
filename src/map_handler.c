@@ -6,12 +6,15 @@
 /*   By: bmenant <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/22 16:06:13 by bmenant           #+#    #+#             */
-/*   Updated: 2019/07/10 19:46:50 by bmenant          ###   ########.fr       */
+/*   Updated: 2019/07/28 11:40:11 by bmenant          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/wolf3d.h"
+#include "../inc/wolf3d.h"
 #include <unistd.h>
+#include <fcntl.h>
+#include "../libft/libft.h"
+#include <stdlib.h>
 
 static int	fill_map(t_map *map, char *line)
 {

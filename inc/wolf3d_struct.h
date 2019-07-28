@@ -6,7 +6,7 @@
 /*   By: bmenant <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/17 13:22:07 by bmenant           #+#    #+#             */
-/*   Updated: 2019/07/25 15:45:29 by bmenant          ###   ########.fr       */
+/*   Updated: 2019/07/28 14:26:02 by bmenant          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,6 @@ typedef struct		s_tables
 	float			itan[361];
 }					t_tables;
 
-typedef struct		s_image
-{
-	int				bpp;
-	int				line;
-	int				endian;
-}					t_image;
 
 typedef struct		s_color
 {
@@ -45,9 +39,6 @@ typedef struct		s_color
 typedef	struct		s_player
 {
 	float			angle;
-	float			pos[2];
-	float			dir[2];
-	float			plane[2];
 	float			turn_speed;
 	float			move_speed;
 	int				jump_state;
@@ -59,6 +50,8 @@ typedef	struct		s_player
 	int				up_move;
 	int				down_move;
 	int				z;
+	int				pos[2];
+	int				fov;
 }					t_player;
 
 typedef struct		s_mlx
@@ -77,15 +70,12 @@ typedef struct		s_mlx
 typedef struct		s_ray
 {
 	float			dist;
-	float			cam;
 	int				hit;
 	int				hit_side;
-	int				map[2];
-	int				step[2];
-	float			dir[2];
-	float			side[2];
-	float			delta[2];
-	float			pos[2];
+	int				nbr;
+	float			angle_inc;
+	int				xa;
+	int				ya;
 }					t_ray;
 
 typedef struct		s_map

@@ -10,19 +10,23 @@
 #                                                                              #
 # **************************************************************************** #
 
+GREEN = \033[0;32m
+BLUE = \033[1;34m
+YELLOW = \033[1;33m
+WHITE = \033[1;37m
+OK = $(GREEN)-OK-$(WHITE)
+
 NAME = wolf3d
 
 SRC_FILE = ./src/
 OBJ_FILE = ./obj/
 
 SRCS =	main.c \
-		key_handler.c \
 		init.c \
 		map_handler.c \
 		drawing_handler.c \
-		launch_rays.c \
-		direction_moves.c \
-		special_moves.c
+		launch_rays.c
+
 
 OBJS = $(SRCS:.c=.o)
 
@@ -30,7 +34,7 @@ SRC = $(addprefix $(SRC_FILE),$(SRCS))
 OBJ = $(addprefix $(OBJ_FILE),$(OBJS))
 
 FLAGS = -lmlx -framework OpenGL -framework AppKit
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS =# -Wall -Wextra -Werror
 IFLAGS = -I ./inc/
 LFLAGS = ./libft/libft.a
 
@@ -42,7 +46,8 @@ all : $(NAME)
 
 $(NAME) : $(OBJ)
 	@ make -C./libft/
-	@ $(CC) $(LFLAGS) $(OBJ) -o $@ $(FLAGS)
+	@ $(CC) $(LFLAGS) $(OBJ) -o $@ $(FLAGS) -fsanitize=address
+	@echo "$(BLUE)-$(NAME)	$(OK)"
 
 $(OBJ_FILE)%.o : $(SRC_FILE)%.c
 	@ mkdir $(OBJ_FILE) 2> /dev/null || true
@@ -52,12 +57,21 @@ clean :
 	@ make clean -C ./libft/
 	@ rm -rf $(OBJ)
 	@ rmdir $(OBJ_FILE) 2> /dev/null || true
+	@echo "$(BLUE)-CLEAN		$(OK)"
 
 fclean : clean
 	@ make fclean -C ./libft/
 	@ rm -f $(NAME)
+	@echo "$(BLUE)-FCLEAN		$(OK)"
 
 re	: fclean all
+
+push:
+	@git add -A
+	@git commit -m "make push"
+	@echo "\n$(BLUE)-COMMIT	$(OK)"
+	@git push origin sseneca
+	@echo "\n$(BLUE)-PUSH	$(OK)"
 
 test : re
 	@ ./$(NAME) test_map

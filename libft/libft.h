@@ -26,7 +26,7 @@ typedef struct		s_list
 
 int					ft_absolute(int nbr);
 int					ft_atoi(const char *str);
-float				ft_arc_to_rad(float angle, float fov);
+float				ft_arc_to_rad(float angle);
 void				ft_bzero(void *s, size_t n);
 char				**ft_double_tab(int width, int height);
 int					**ft_double_tab_int(int width, int height);

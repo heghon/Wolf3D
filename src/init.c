@@ -6,16 +6,16 @@
 /*   By: bmenant <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/25 14:04:17 by bmenant           #+#    #+#             */
-/*   Updated: 2019/07/25 15:09:52 by bmenant          ###   ########.fr       */
+/*   Updated: 2019/07/28 15:32:06 by bmenant          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/wolf3d.h"
-#include "../includes/wolf3d_struct.h"
-#include "../includes/wolf3d_define.h"
+#include "../inc/wolf3d.h"
+#include "../inc/wolf3d_define.h"
 #include "../libft/libft.h"
 #include <math.h>
 #include <time.h>
+#include <mlx.h>
 
 static void	init_tables(t_tables *tables)
 {
@@ -50,13 +50,9 @@ static void	init_mlx(t_mlx *mlx)
 static void	init_player(t_player *player)
 {
 	player->angle = 0;
-	player->pos[X] = 200;
-	player->pos[Y] = 200;
-	player->dir[X] = -1;
-	player->dir[Y] = 0;
-	player->z = 0;
-	player->plane[X] = 0;
-	player->plane[Y] = 0.66;
+	player->pos[X] = 300;
+	player->pos[Y] = 300;
+	player->z = PLAYER_H;
 	player->turn_speed = 0.1;
 	player->move_speed = 0.05;
 	player->left_move = 0;
@@ -67,7 +63,7 @@ static void	init_player(t_player *player)
 	player->down_move = 0;
 	player->jump_state = 0;
 	player->crouch_state = 0;
-
+	player->fov = 60;
 }
 
 void		init(t_data *data)
@@ -79,7 +75,7 @@ void		init(t_data *data)
 	data->color.first_color = DARK_RED;
 	data->color.second_color = RED;
 	data->color.third_color = ORANGE;
-	data->color.fourth_color = YELLOW;
-	data->color.sky_color = LIGHT_YELLOW;
+	data->color.fourth_color = 0xFFFFFF;
+	data->color.sky_color = 0x0000FF;
 	data->color.ground_color = BROWN;
 }

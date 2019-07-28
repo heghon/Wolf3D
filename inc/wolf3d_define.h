@@ -6,7 +6,7 @@
 /*   By: bmenant <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/17 13:20:50 by bmenant           #+#    #+#             */
-/*   Updated: 2019/07/11 12:18:00 by bmenant          ###   ########.fr       */
+/*   Updated: 2019/07/28 14:10:21 by bmenant          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@
 # define GRID_S 256
 # define WALL_H 256
 # define PLAYER_H 128
+# define PLAN_DIST 1109
 # define SCREEN_DIST 10
 
 # define ANGLE0 0
