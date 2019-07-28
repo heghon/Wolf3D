@@ -45,7 +45,7 @@ typedef struct		s_color
 typedef	struct		s_player
 {
 	float			angle;
-	float			pos[2];
+	int				pos[2];
 	float			dir[2];
 	float			plane[2];
 	float			turn_speed;
@@ -79,7 +79,7 @@ typedef struct		s_mlx
 
 typedef struct		s_ray
 {
-	float			dist;
+	int			dist;//
 	float			cam;
 	int				hit;
 	int				hit_side;

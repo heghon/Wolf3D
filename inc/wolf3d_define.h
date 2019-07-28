@@ -62,6 +62,7 @@
 
 # define PROJ_PLANE_L 1280
 # define PROJ_PLANE_H 800
+# define PLANE_DIST 1109
 # define GRID_S 256
 # define WALL_H 256
 # define PLAYER_H 128

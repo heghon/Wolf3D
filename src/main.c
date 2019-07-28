@@ -17,6 +17,8 @@
 #include <time.h>
 #include <mlx.h>
 
+#include <stdio.h>
+
 static int		close_window(void *param)
 {
 	(void)param;
@@ -37,10 +39,6 @@ void			function_problem(int mode)
 
 int				loop_handler(t_data *data)
 {
-	data->mlx.last_img = clock();
-	if (data->mlx.next_img > data->mlx.last_img)
-		return (0);
-	data->mlx.next_img = data->mlx.last_img + (CLOCKS_PER_SEC / 100);
 	/*
 	if (data->player.forward_move)
 		forward_move(data);
@@ -55,11 +53,26 @@ int				loop_handler(t_data *data)
 	if (data->player.down_move)
 		crouch_handler(data);
 		*/
-	launch_rays(data);
-	mlx_put_image_to_window(data->mlx.ptr, data->mlx.win, data->mlx.img, 0, 0);
+		data->mlx.last_img = clock();
+	if (data->mlx.next_img > data->mlx.last_img)
+		return (0);
+	data->mlx.next_img = data->mlx.last_img + (CLOCKS_PER_SEC / 100);
+		launch_rays(data);
 	return (0);
 }
 
+int key_handler(int key, t_data *data)
+{
+	if (key == ARROW_LEFT)
+		data->player.angle -= 1.0;
+	else if (key == ARROW_RIGHT)
+		data->player.angle += 1.0;
+	data->player.angle = data->player.angle == -1 ? 359 : data->player.angle;
+	data->player.angle = data->player.angle == 360 ? 0 : data->player.angle;
+	printf ("%f\n", data->player.angle);
+	loop_handler(data);
+	return (0);
+}
 int				main(int ac, char **av)
 {
 	t_data		data;
@@ -69,10 +82,10 @@ int				main(int ac, char **av)
 	map_handler(&data.map, av[1]);
 	init(&data);
 	data.mlx.win = mlx_new_window(data.mlx.ptr, WIN_L, WIN_H, "WOLFENSTEIN");
+	//launch_rays(&data);
+	mlx_hook(data.mlx.win, 2, 5, key_handler, &data);
+	mlx_hook(data.mlx.win, 17, 0L, close_window, (void*)0);
 	mlx_loop_hook(data.mlx.win, loop_handler, &data);
-	//mlx_hook(data.mlx.win, 2, 5, key_handler, (void*)0);
-	//mlx_hook(data.mlx.win, 17, 0L, close_window, (void*)0);
 	mlx_loop(data.mlx.ptr);
-	close_window(NULL);
 	return (0);
 }

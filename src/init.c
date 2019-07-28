@@ -50,8 +50,8 @@ static void	init_mlx(t_mlx *mlx)
 static void	init_player(t_player *player)
 {
 	player->angle = 0;
-	player->pos[X] = 200;
-	player->pos[Y] = 200;
+	player->pos[X] = 1792;//384;//32767;//32767;
+	player->pos[Y] = 384;//640;//1;//1;
 	player->dir[X] = -1;
 	player->dir[Y] = 0;
 	player->z = PLAYER_H;
@@ -80,6 +80,6 @@ void		init(t_data *data)
 	data->color.second_color = RED;
 	data->color.third_color = ORANGE;
 	data->color.fourth_color = YELLOW;
-	data->color.sky_color = LIGHT_YELLOW;
-	data->color.ground_color = BROWN;
+	data->color.sky_color = 0x0088FF;
+	data->color.ground_color = 0xFF8800;
 }
