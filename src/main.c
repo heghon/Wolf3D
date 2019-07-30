@@ -85,7 +85,7 @@ int				main(int ac, char **av)
 	//launch_rays(&data);
 	mlx_hook(data.mlx.win, 2, 5, key_handler, &data);
 	mlx_hook(data.mlx.win, 17, 0L, close_window, (void*)0);
-	mlx_loop_hook(data.mlx.win, loop_handler, &data);
+	//mlx_loop_hook(data.mlx.win, loop_handler, &data);
 	mlx_loop(data.mlx.ptr);
 	return (0);
 }

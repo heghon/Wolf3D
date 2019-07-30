@@ -13,11 +13,13 @@
 #include "../inc/wolf3d.h"
 #include "../inc/wolf3d_define.h"
 #include "../libft/libft.h"
+#include <mlx.h>
 
 #include <stdio.h>
 
 void				pixel_put(t_data *data, int size, int i, unsigned int c)
 {
+	//*
 	int	x;
 
 	//x = (i * data->mlx.s_line) + data->ray.nbr * 4;
@@ -27,6 +29,10 @@ void				pixel_put(t_data *data, int size, int i, unsigned int c)
 	data->mlx.pic[x + 1] = c >> 8;
 	data->mlx.pic[x + 2] = c >> 16;
 	//printf("5\n");
+	//*/
+	
+	//size = size;
+	//mlx_pixel_put(data->mlx.ptr, data->mlx.win, data->ray.nbr, i, c);
 }
 
 static unsigned int	find_color(t_player *player, t_ray *ray, t_color *color)
