@@ -6,7 +6,7 @@
 /*   By: bmenant <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/17 13:20:50 by bmenant           #+#    #+#             */
-/*   Updated: 2019/07/28 14:10:21 by bmenant          ###   ########.fr       */
+/*   Updated: 2019/07/30 16:01:49 by bmenant          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@
 # define E 14
 # define F 3
 # define G 5
-# define H 4
 # define I 34
 # define J 38
 # define K 40
@@ -34,7 +33,6 @@
 # define S 1
 # define T 17
 # define U 32
-# define V 9
 # define W 13
 # define Z 6
 # define ESC 53
@@ -59,14 +57,18 @@
 # define WIN_H 1000
 # define X 0
 # define Y 1
+# define H 0
+# define V 1
 
-# define PROJ_PLANE_L 1280
-# define PROJ_PLANE_H 800
+# define PROJ_PLANE_L WIN_L
+# define PROJ_PLANE_H (WIN_H - (WIN_H / 5))
+# define PLANE_DIST 1109
 # define GRID_S 256
 # define WALL_H 256
 # define PLAYER_H 128
-# define PLAN_DIST 1109
-# define SCREEN_DIST 10
+# define RAD(x) (x * 0.017453292519943)
+# define ANGLE_INC 0.046875
+# define FOV 60
 
 # define ANGLE0 0
 # define ANGLE5 107

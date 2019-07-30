@@ -6,7 +6,7 @@
 /*   By: bmenant <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/17 13:22:07 by bmenant           #+#    #+#             */
-/*   Updated: 2019/07/28 14:26:02 by bmenant          ###   ########.fr       */
+/*   Updated: 2019/07/30 16:33:40 by bmenant          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,6 @@
 # define WOLF3D_STRUCT_H
 
 # include <time.h>
-
-typedef struct		s_tables
-{
-	float			sin[361];
-	float			isin[361];
-	float			cos[361];
-	float			icos[361];
-	float			tan[361];
-	float			itan[361];
-}					t_tables;
-
 
 typedef struct		s_color
 {
@@ -39,6 +28,7 @@ typedef struct		s_color
 typedef	struct		s_player
 {
 	float			angle;
+	int				pos[2];
 	float			turn_speed;
 	float			move_speed;
 	int				jump_state;
@@ -50,8 +40,6 @@ typedef	struct		s_player
 	int				up_move;
 	int				down_move;
 	int				z;
-	int				pos[2];
-	int				fov;
 }					t_player;
 
 typedef struct		s_mlx
@@ -71,11 +59,14 @@ typedef struct		s_ray
 {
 	float			dist;
 	int				hit;
-	int				hit_side;
+	char			side;
 	int				nbr;
 	float			angle_inc;
-	int				xa;
-	int				ya;
+	float			x[2];
+	float			y[2];
+	int				h[2];
+	int				v[2];
+
 }					t_ray;
 
 typedef struct		s_map
@@ -93,7 +84,6 @@ typedef struct		s_data
 	t_player		player;
 	t_map			map;
 	t_ray			ray;
-	t_tables		tables;
 	t_color			color;
 	int				start_x;
 	int				start_y;

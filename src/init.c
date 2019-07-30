@@ -6,7 +6,7 @@
 /*   By: bmenant <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/25 14:04:17 by bmenant           #+#    #+#             */
-/*   Updated: 2019/07/28 15:32:06 by bmenant          ###   ########.fr       */
+/*   Updated: 2019/07/30 16:46:56 by bmenant          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,24 +16,6 @@
 #include <math.h>
 #include <time.h>
 #include <mlx.h>
-
-static void	init_tables(t_tables *tables)
-{
-	int		i;
-	float	rad;
-
-	i = -1;
-	while (++i < 361)
-	{
-		rad = ft_arc_to_rad((float)i) + (float)0.0001;
-		tables->sin[i] = (float)sin(rad);
-		tables->isin[i] = (1.0F / tables->sin[i]);
-		tables->cos[i] = (float)cos(rad);
-		tables->icos[i] = (1.0F / tables->cos[i]);
-		tables->tan[i] = (float)tan(rad);
-		tables->itan[i] = (1.0F / tables->tan[i]);
-	}
-}
 
 static void	init_mlx(t_mlx *mlx)
 {
@@ -50,8 +32,8 @@ static void	init_mlx(t_mlx *mlx)
 static void	init_player(t_player *player)
 {
 	player->angle = 0;
-	player->pos[X] = 300;
-	player->pos[Y] = 300;
+	player->pos[X] = 384;
+	player->pos[Y] = 384;
 	player->z = PLAYER_H;
 	player->turn_speed = 0.1;
 	player->move_speed = 0.05;
@@ -63,7 +45,6 @@ static void	init_player(t_player *player)
 	player->down_move = 0;
 	player->jump_state = 0;
 	player->crouch_state = 0;
-	player->fov = 60;
 }
 
 void		init(t_data *data)
@@ -75,7 +56,7 @@ void		init(t_data *data)
 	data->color.first_color = DARK_RED;
 	data->color.second_color = RED;
 	data->color.third_color = ORANGE;
-	data->color.fourth_color = 0xFFFFFF;
-	data->color.sky_color = 0x0000FF;
-	data->color.ground_color = BROWN;
+	data->color.fourth_color = YELLOW;
+	data->color.sky_color = 0x0088FF;
+	data->color.ground_color = 0xFF8800;
 }
