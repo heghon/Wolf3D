@@ -48,8 +48,8 @@ typedef	struct		s_player
 	int				pos[2];
 	float			dir[2];
 	float			plane[2];
-	float			turn_speed;
-	float			move_speed;
+	int				turn_speed;
+	int				move_speed;
 	int				jump_state;
 	int				crouch_state;
 	int				left_move;

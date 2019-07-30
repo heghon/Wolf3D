@@ -64,7 +64,7 @@ static int	vertical_check(t_ray ray, t_player player, t_map map)
 	//if (map[ft_round_down(a[Y], GRID_S)][ft_round_down(a[X], GRID_S)] == 1)
 	//	return ((abs(player.pos[Y] - a[Y]) / sin(angle)) * cos(beta));
 	printf("2 %d %d \n", a[X], a[Y]);
-	if (a[X] < 0 || a[Y] < 0 || a[X] > 5 * GRID_S || a[Y] > 5 * GRID_S)
+	if (a[X] < 0 || a[Y] < 0 || a[X] > map.width * GRID_S || a[Y] > map.height * GRID_S)
 		return (100000);
 	printf("3");
 	while (map.map[a[Y] / GRID_S][a[X] / GRID_S] != 1)
@@ -73,7 +73,7 @@ static int	vertical_check(t_ray ray, t_player player, t_map map)
 		a[X] += ray.xa;
 		a[Y] += ray.ya;
 		//printf("5 ");
-		if (a[X] < 0 || a[Y] < 0 || a[X] > 5 * GRID_S || a[Y] > 5 * GRID_S)
+		if (a[X] < 0 || a[Y] < 0 || a[X] > map.width * GRID_S || a[Y] > map.height * GRID_S)
 			return (100000);
 	}
 	printf("5");
@@ -107,7 +107,7 @@ static int	horizontal_check(t_ray ray, t_player player, t_map map)
 	//	if (map[ft_round_down(a[Y], GRID_S)][ft_round_down(a[X], GRID_S)] == 1)
 	//		return ((ft_absolute(player.pos[X] - a[X]) / cos(angle)) * cos(beta));
 	printf("6");
-	if (a[X] < 0 || a[Y] < 0 || a[X] > 5 * GRID_S || a[Y] > 5 * GRID_S)
+	if (a[X] < 0 || a[Y] < 0 || a[X] > map.width * GRID_S || a[Y] > map.height * GRID_S)
 		return (100000);
 	while (map.map[a[Y] / GRID_S][a[X] / GRID_S] != 1)
 	{
@@ -118,7 +118,7 @@ static int	horizontal_check(t_ray ray, t_player player, t_map map)
 		//printf("5 div1=%d, div0=%d\n", a[Y] / GRID_S, a[X] / GRID_S);
 		//if (a[X] < 0 || a[Y] < 0)
 		//	return (0);
-		if (a[X] < 0 || a[Y] < 0 || a[X] > 5 * GRID_S || a[Y] > 5 * GRID_S)
+		if (a[X] < 0 || a[Y] < 0 || a[X] > map.width * GRID_S || a[Y] > map.height * GRID_S)
 			return (100000);
 	}
 	printf("7 ");

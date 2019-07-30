@@ -17,6 +17,29 @@
 #include <time.h>
 #include <mlx.h>
 
+static int	init_position(t_map *map, t_player *player)
+{
+	int i;
+	int j;
+
+	i = -1;
+
+	while (++i < map->height)
+	{
+		j = -1;
+		while(++j < map->width)
+		{
+			if (map->map[i][j] == 0)
+			{
+				player->pos[X] = j * GRID_S + GRID_S / 2;
+				player->pos[Y] = i * GRID_S + GRID_S / 2;
+				return (0);
+			}
+		}
+	}
+	function_problem(2);
+	return (0);
+}
 static void	init_tables(t_tables *tables)
 {
 	int		i;
@@ -49,16 +72,16 @@ static void	init_mlx(t_mlx *mlx)
 
 static void	init_player(t_player *player)
 {
-	player->angle = 0;
-	player->pos[X] = 640;//5 * 256;//1792;//384;//32767;//32767;
-	player->pos[Y] = 640;//5 * 256;//384;//640;//1;//1;
+	player->angle = 270;
+	player->pos[X] = 0;//5 * 256;//1792;//384;//32767;//32767;
+	player->pos[Y] = 0;//5 * 256;//384;//640;//1;//1;
 	player->dir[X] = -1;
 	player->dir[Y] = 0;
 	player->z = PLAYER_H;
 	player->plane[X] = 0;
 	player->plane[Y] = 0.66;
-	player->turn_speed = 0.1;
-	player->move_speed = 0.05;
+	player->turn_speed = 1;
+	player->move_speed = 10;
 	player->left_move = 0;
 	player->right_move = 0;
 	player->forward_move = 0;
@@ -73,6 +96,7 @@ static void	init_player(t_player *player)
 void		init(t_data *data)
 {
 	init_player(&data->player);
+	init_position(&data->map, &data->player);
 	init_mlx(&data->mlx);
 	data->width = WIN_L;
 	data->height = WIN_H;
