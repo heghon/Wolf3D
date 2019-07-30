@@ -60,8 +60,8 @@
 # define X 0
 # define Y 1
 
-# define PROJ_PLANE_L 1280
-# define PROJ_PLANE_H 800
+# define PROJ_PLANE_L WIN_L
+# define PROJ_PLANE_H (WIN_H - (WIN_H / 5))
 # define PLANE_DIST 1109
 # define GRID_S 256
 # define WALL_H 256

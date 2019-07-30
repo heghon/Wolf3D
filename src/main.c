@@ -69,7 +69,7 @@ int key_handler(int key, t_data *data)
 		data->player.angle += 1.0;
 	data->player.angle = data->player.angle == -1 ? 359 : data->player.angle;
 	data->player.angle = data->player.angle == 360 ? 0 : data->player.angle;
-	printf ("%f\n", data->player.angle);
+	//printf ("%f\n", data->player.angle);
 	loop_handler(data);
 	return (0);
 }
