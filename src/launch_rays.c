@@ -84,7 +84,7 @@ static int	horizontal_check(t_ray ray, t_player player, t_map map)
 //	float test;
 
 //	test = player.fov - (ray.nbr * ray.angle_inc) + 60;
-	angle = player.angle + (player.fov / 2.0);// - (ray.nbr * ray.angle_inc);
+	angle = player.angle + (player.fov / 2.0) - (ray.nbr * ray.angle_inc);
 	if (angle > 360.0)
 		angle -= 360.0;
 	angle = fabs(angle);
