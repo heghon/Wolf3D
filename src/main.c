@@ -51,7 +51,7 @@ int key_handler(int key, t_data *data)
 {
 	if (key == ESC)
 	{
-		free(data->map.map);
+		//free(data->map.map);
 		exit(0);
 	}
 	if (key == ARROW_LEFT)

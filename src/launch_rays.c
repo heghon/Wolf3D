@@ -37,51 +37,60 @@ static void	draw_the_ray(t_data *data)
 	drawing_handler(size, start, stop, data);
 }
 
-static float	vertical_check(t_ray *ray, t_player player, int **map, float angle)
+static float	vertical_check(t_ray *ray, t_player *player, int **map, float angle)
 {
 	int		a[2];
 	float	beta;
 
-	beta = (float)fabs(player.angle - angle);
+	beta = (float)fabs(player->angle - angle);
+	printf("VERT Y = %d X = %d \n", ray->v[Y] / GRID_S, ray->v[X] / GRID_S);
 	if (map[ray->v[Y] / GRID_S][ray->v[X] / GRID_S] == 1)
 		ray->hit = 1;
 	else
 	{
 		ray->v[X] += ray->x[V];
 		ray->v[Y] += ray->y[V];
+		return (0);
 	}
-	return (sqrt((player.pos[X] * ray->v[X]) * (player.pos[X] * ray->v[X]) + (player.pos[X] * ray->v[X]) * (player.pos[X] * ray->v[X])) * fabs(cos(RAD(beta))));
+	return (sqrt((player->pos[X] - ray->v[X]) * (player->pos[X] - ray->v[X]) + (player->pos[Y] - ray->v[Y]) * (player->pos[Y] - ray->v[Y])) * fabs(cos(RAD(beta))));
 }
 
-static float	horizontal_check(t_ray *ray, t_player player, int **map, float angle)
+static float	horizontal_check(t_ray *ray, t_player *player, int **map, float angle)
 {
 	float	beta;
 
-	printf("dans hcheck, posx = %d et hx = %f\n", player.pos[X], ray->h[X]);
-	beta = (float)fabs(player.angle - angle);
+	printf("dans hcheck, posx = %d et hx = %d\n", player->pos[X], ray->h[X]);
+	beta = (float)fabs(player->angle - angle);
+	printf("HORIZ Y = %d X = %d \n", ray->h[Y] / GRID_S, ray->h[X] / GRID_S);
 	if (map[ray->h[Y] / GRID_S][ray->h[X] / GRID_S] == 1)
 		ray->hit = 1;
 	else
 	{
 		ray->h[X] += ray->x[H];
 		ray->h[Y] += ray->y[H];
+		return (0);
 	}
-	return (sqrt((player.pos[X] * ray->h[X]) * (player.pos[X] * ray->h[X]) + (player.pos[X] * ray->h[X]) * (player.pos[X] * ray->h[X])) * fabs(cos(RAD(beta))));
+	return (sqrt((player->pos[X] - ray->h[X]) * (player->pos[X] - ray->h[X]) + (player->pos[Y] - ray->h[Y]) * (player->pos[Y] - ray->h[Y])) * fabs(cos(RAD(beta))));
 }
 
-static void	init_ray(t_data *data, t_player player, float angle)
+static void	init_ray(t_data *data, t_player *player, float angle)
 {
+	player->pos[X] = 384;
+	player->pos[Y] = 384;
 	data->ray.hit = 0;
 	data->ray.x[H] = GRID_S / tan(RAD(angle));
 	data->ray.y[H] = (angle < 180.0 && angle > 0.0 ? -GRID_S : GRID_S);
+
 	data->ray.x[V] = (angle > 90 && angle < 270 ? -GRID_S : GRID_S);
 	data->ray.y[V] = GRID_S * tan(RAD(angle));
-	data->ray.h[Y] = (player.pos[Y] / GRID_S) * GRID_S;
+
+	data->ray.h[Y] = (player->pos[Y] / GRID_S) * GRID_S;
 	data->ray.h[Y] += (angle < 180.0 ? -1 : GRID_S);
-	data->ray.h[X] = player.pos[X] + (player.pos[Y] - data->ray.h[Y]) / tan(RAD(angle));
-	data->ray.v[X] = (player.pos[Y] / GRID_S) * GRID_S;
+	data->ray.h[X] = player->pos[X] + (player->pos[Y] - data->ray.h[Y]) / tan(RAD(angle));
+
+	data->ray.v[X] = (player->pos[Y] / GRID_S) * GRID_S;
 	data->ray.v[X] += (angle > 90 && angle < 270 ? -1 : GRID_S);
-	data->ray.v[Y] = player.pos[Y] + (player.pos[X] - data->ray.v[X]) * tan(RAD(angle));
+	data->ray.v[Y] = player->pos[Y] + (player->pos[X] - data->ray.v[X]) * tan(RAD(angle));
 	printf("ray.x[H] = %f, ray.y[H] = %f, ray.x[V] = %f, ray.y[V] = %f\n", data->ray.x[H], data->ray.y[H], data->ray.x[V], data->ray.y[V]);
 	printf("h[X] = %d, h[Y] = %d, v[X] = %d, v[Y] = %d\n", data->ray.h[X] / GRID_S, data->ray.h[Y] / GRID_S, data->ray.v[X] / GRID_S, data->ray.v[Y] / GRID_S);
 }
@@ -94,18 +103,18 @@ void		launch_rays(t_data *data)
 	float	angle;
 
 	i = -1;
-	while (++i < 1280)
+	while (++i < WIN_L)
 	{
 		angle = data->player.angle + (FOV / 2.0) - (i * ANGLE_INC);
-		angle -= (angle >= 360.0 ? 360.0 : 0);
-		angle += (angle < 0.0 ? 360.0 : 0);
+		angle -= angle >= 360.0 ? 360.0 : 0;
+		angle += angle < 0.0 ? 360.0 : 0;
 		printf("angle = %f\n", angle);
 		data->ray.nbr = i;
-		init_ray(data, data->player, angle);
+		init_ray(data, &data->player, angle);
 		while (data->ray.hit == 0)
 		{
-			h = horizontal_check(&data->ray, data->player, data->map.map, angle);
-			v = vertical_check(&data->ray, data->player, data->map.map, angle);
+			h = horizontal_check(&data->ray, &data->player, data->map.map, angle);
+			v = vertical_check(&data->ray, &data->player, data->map.map, angle);
 		}
 		data->ray.dist = (h <= v ? h : v);
 		printf("h = %f, v = %f et dist = %f\n", h, v,  data->ray.dist);
