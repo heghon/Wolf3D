@@ -49,33 +49,31 @@ static int	vertical_check(t_ray ray, t_player player, t_map map)
 
 //	test = player.fov - (ray.nbr * ray.angle_inc);
 	angle = player.angle + (player.fov / 2.0) - (ray.nbr * ray.angle_inc);
-
-	//if (ray.nbr == WIN_L / 2)
-	//	printf("%f", angle);
-
+	if (angle >= 360.0)
+		angle -= 360.0;
 	
-	//angle = fabs(angle);
 	beta = fabs(player.angle - angle);
+	
 	//printf("1");
-	ray.xa = (angle > 90 && angle < 270 ? -GRID_S : GRID_S);
+	ray.xa = (angle > 90 && angle < 270 ? GRID_S : -GRID_S);
 	ray.ya = GRID_S * tan(ft_arc_to_rad(angle));
 	//printf("2");
 	a[X] = player.pos[X] / GRID_S * GRID_S;
-	printf("1 %d %d \n", a[X], a[Y]);
-	a[X] += angle > 90 && angle < 270 ? -1 : GRID_S;
-	printf("2 %d %d \n", a[X], a[Y]);
+	//printf("1 %d %d \n", a[X], a[Y]);
+	a[X] += angle > 90 && angle < 270 ? GRID_S : -1;
+	//printf("2 %d %d \n", a[X], a[Y]);
 	a[Y] = player.pos[Y] + (player.pos[X] - a[X]) * tan(ft_arc_to_rad(angle));
 	//if (map[ft_round_down(a[Y], GRID_S)][ft_round_down(a[X], GRID_S)] == 1)
 	//	return ((abs(player.pos[Y] - a[Y]) / sin(angle)) * cos(beta));
 	while (!(a[X] < 0 || a[Y] < 0) && !(a[X] > map.width * GRID_S|| a[Y] > map.height * GRID_S) && (map.map[a[Y] / GRID_S][a[X] / GRID_S] != 1))
 	{
-		printf("4");
+		//printf("4");
 		a[X] += ray.xa;
 		a[Y] += ray.ya;
-		printf("5 ");
+		//printf("5 ");
 	}
 	//printf("6 %f %f %f\n", (sin(ft_arc_to_rad(angle)) * cos(ft_arc_to_rad(beta))), sin(ft_arc_to_rad(angle)), cos(ft_arc_to_rad(beta)));
-	printf("3 %d %d \n", a[X], a[Y]);
+	//printf("3 %d %d \n", a[X], a[Y]);
 	return (fabs( (player.pos[X] - a[X]) / cos(ft_arc_to_rad(angle)) ) * cos(ft_arc_to_rad(beta)) );
 }
 
@@ -88,17 +86,19 @@ static int	horizontal_check(t_ray ray, t_player player, t_map map)
 
 //	test = player.fov - (ray.nbr * ray.angle_inc) + 60;
 	angle = player.angle + (player.fov / 2.0) - (ray.nbr * ray.angle_inc);
-	//if (angle > 360.0)
-	//	angle -= 360.0;
+	if (angle >= 360.0)
+		angle -= 360.0;
 	angle = fabs(angle);
-	//angle = angle == 0 ? 1 : angle;//temp
+	
+	
 	beta = fabs(player.angle - angle);
+	
 	//printf("1\n");
-	ray.ya = (angle < 180 ? -GRID_S : GRID_S);
+	ray.ya = (angle < 180.0 ? -GRID_S : GRID_S);
 	ray.xa = GRID_S / tan(ft_arc_to_rad(angle));
 	//printf("2 xa=%d ya=%d\n", ray.xa, ray.ya);
 	a[Y] = player.pos[Y] / GRID_S * GRID_S;
-	a[Y] += angle < 180 ? -1 : GRID_S;
+	a[Y] += angle < 180.0 ? -1 : GRID_S;
 	a[X] = player.pos[X] + (player.pos[Y] - a[Y]) / tan(ft_arc_to_rad(angle));
 	//printf("3 a0=%d a1=%d\n", a[X], a[Y]);
 	//	if (map[ft_round_down(a[Y], GRID_S)][ft_round_down(a[X], GRID_S)] == 1)
@@ -137,7 +137,7 @@ void		launch_rays(t_data *data)
 		//printf("outVC");
 		data->ray.dist = (h <= v ? h : v);
 		data->ray.hit = (h <= v ? 'h' : 'v');
-		//printf(" %c", data->ray.hit);
+		printf(" %c", data->ray.hit);
 		draw_the_ray(data);
 	}
 	mlx_put_image_to_window(data->mlx.ptr, data->mlx.win, data->mlx.img, 0, 0);
