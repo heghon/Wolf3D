@@ -72,11 +72,21 @@ int key_handler(int key, t_data *data)
 	else if (key == ARROW_RIGHT)
 		data->player.pos[Y] += 64;
 	else if (key == ARROW_UP)
-		data->player.pos[X] -= 64;
-	else if (key == ARROW_DOWN)
 		data->player.pos[X] += 64;
+	else if (key == ARROW_DOWN)
+		data->player.pos[X] -= 64;
+	//////////VERIF
+	if (data->player.pos[X] < 0)
+		data->player.pos[X] += 64;
+	if (data->player.pos[Y] < 0)
+		data->player.pos[Y] += 64;
+	if (data->player.pos[X] > data->map.width * 256)
+		data->player.pos[X] -= 64;
+	if (data->player.pos[Y] > data->map.height * 256)
+		data->player.pos[Y] -= 64;
 	data->player.angle = data->player.angle == -1 ? 359 : data->player.angle;
 	data->player.angle = data->player.angle == 360 ? 0 : data->player.angle;
+	///////////
 	//printf ("%f\n", data->player.angle);
 	loop_handler(data);
 	printf("\n\n\n");
@@ -98,14 +108,12 @@ int				main(int ac, char **av)
 		j = -1;
 		while (++j < data.map.width)
 			printf("%d ", data.map.map[i][j]);
-		printf("\n");
+		printf(" w = %d h = %d \n", data.map.width, data.map.height);
 	}
-
-
 
 	init(&data);
 	data.mlx.win = mlx_new_window(data.mlx.ptr, WIN_L, WIN_H, "WOLFENSTEIN");
-	loop_handler(&data);
+	//loop_handler(&data);
 	mlx_hook(data.mlx.win, 2, 5, key_handler, &data);
 	mlx_hook(data.mlx.win, 17, 0L, close_window, (void*)0);
 	//mlx_loop_hook(data.mlx.win, loop_handler, &data);
