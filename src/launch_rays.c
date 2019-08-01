@@ -72,7 +72,7 @@ void		launch_rays(t_data *data)
 		j = -1;
 		data->ray.nbr = i;
 		init_ray(&data->ray, &data->camera, &data->player);
-		while (data->ray.hit == 0 && ++j)
+		while (data->ray.hit == 0 && ++j >= 0)
 			{
 				if (data->ray.first_dist[X] < data->ray.first_dist[Y])
 				{
@@ -98,7 +98,7 @@ void		launch_rays(t_data *data)
 				printf("fin boucle : player->pos[Y] = %f\n", data->player.pos[Y]);
 				printf("fin boucle : ray->step[X] = %d\n", data->ray.step[X]);
 				printf("fin boucle : ray->step[Y] = %d\n", data->ray.step[Y]);
-		if (data->ray.side_hit != 0)
+		if (data->ray.side_hit == 0)
 		{
 			printf("\nici ");
 			data->ray.final_dist = (data->ray.map[X] - data->player.pos[X] + (1 - data->ray.step[X]) / 2) / data->ray.dir[X];
@@ -108,5 +108,6 @@ void		launch_rays(t_data *data)
 		data->ray.size = (int)(PROJ_PLANE_H / data->ray.final_dist);
 		printf("fin boucle : final_dist = %f et size = %d\n", data->ray.final_dist, data->ray.size);
 		draw_the_ray(data);
+		mlx_put_image_to_window(data->mlx.ptr, data->mlx.win, data->mlx.img, 0, 0);
 	}
 }
