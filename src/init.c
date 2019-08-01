@@ -17,6 +17,7 @@
 #include <time.h>
 #include <mlx.h>
 
+/*
 static int	init_position(t_map *map, t_player *player)
 {
 	int i;
@@ -40,6 +41,7 @@ static int	init_position(t_map *map, t_player *player)
 	function_problem(2);
 	return (0);
 }
+
 static void	init_tables(t_tables *tables)
 {
 	int		i;
@@ -57,6 +59,7 @@ static void	init_tables(t_tables *tables)
 		tables->itan[i] = (1.0F / tables->tan[i]);
 	}
 }
+*/
 
 static void	init_mlx(t_mlx *mlx)
 {
@@ -66,12 +69,13 @@ static void	init_mlx(t_mlx *mlx)
 	mlx->img = mlx_new_image(mlx->ptr, PROJ_PLANE_L, PROJ_PLANE_H);
 	mlx->pic = mlx_get_data_addr(mlx->img, &(mlx->bpp), &(mlx->s_line),
 			&(mlx->endian));
-	mlx->last_img = clock();
-	mlx->next_img = 0;
+	//mlx->last_img = clock();
+	//mlx->next_img = 0;
 }
 
 static void	init_player(t_player *player)
 {
+	/*
 	player->angle = 270;
 	player->pos[X] = 0;//5 * 256;//1792;//384;//32767;//32767;
 	player->pos[Y] = 0;//5 * 256;//384;//640;//1;//1;
@@ -91,19 +95,21 @@ static void	init_player(t_player *player)
 	player->jump_state = 0;
 	player->crouch_state = 0;
 	player->fov = 60;
+*/
 }
 
 void		init(t_data *data)
 {
 	init_player(&data->player);
-	init_position(&data->map, &data->player);
+	//init_position(&data->map, &data->player);
 	init_mlx(&data->mlx);
-	data->width = WIN_L;
-	data->height = WIN_H;
+	/*
 	data->color.first_color = DARK_RED;
 	data->color.second_color = RED;
 	data->color.third_color = ORANGE;
 	data->color.fourth_color = YELLOW;
+	*/
 	data->color.sky_color = 0x0088FF;
 	data->color.ground_color = 0xFF8800;
+
 }

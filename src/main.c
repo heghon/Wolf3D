@@ -53,16 +53,17 @@ int				loop_handler(t_data *data)
 	if (data->player.down_move)
 		crouch_handler(data);
 		*/
-		data->mlx.last_img = clock();
-	if (data->mlx.next_img > data->mlx.last_img)
-		return (0);
-	data->mlx.next_img = data->mlx.last_img + (CLOCKS_PER_SEC / 100);
-		launch_rays(data);
+	//	data->mlx.last_img = clock();
+	//if (data->mlx.next_img > data->mlx.last_img)
+	//	return (0);
+	//data->mlx.next_img = data->mlx.last_img + (CLOCKS_PER_SEC / 100);
+	launch_rays(data);
 	return (0);
 }
 
 int key_handler(int key, t_data *data)
 {
+	/*
 	if (key == M)
 		data->player.angle -= 1.0;
 	else if (key == N)
@@ -86,7 +87,7 @@ int key_handler(int key, t_data *data)
 		data->player.pos[Y] -= 64;
 	data->player.angle = data->player.angle == -1 ? 359 : data->player.angle;
 	data->player.angle = data->player.angle == 360 ? 0 : data->player.angle;
-	///////////
+	*///////////
 	//printf ("%f\n", data->player.angle);
 	loop_handler(data);
 	printf("\n\n\n");
@@ -101,7 +102,7 @@ int				main(int ac, char **av)
 	if (ac != 2)
 		function_problem(0);
 	map_handler(&data.map, av[1]);
-	
+/*	
 	i = -1;
 	while (++i < data.map.height)
 	{
@@ -110,10 +111,10 @@ int				main(int ac, char **av)
 			printf("%d ", data.map.map[i][j]);
 		printf(" w = %d h = %d \n", data.map.width, data.map.height);
 	}
-
+*/
 	init(&data);
 	data.mlx.win = mlx_new_window(data.mlx.ptr, WIN_L, WIN_H, "WOLFENSTEIN");
-	//loop_handler(&data);
+	loop_handler(&data);
 	mlx_hook(data.mlx.win, 2, 5, key_handler, &data);
 	mlx_hook(data.mlx.win, 17, 0L, close_window, (void*)0);
 	//mlx_loop_hook(data.mlx.win, loop_handler, &data);

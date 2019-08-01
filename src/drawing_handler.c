@@ -63,7 +63,7 @@ void				drawing_handler(int size, int start, int stop, t_data *data)
 	i -= 1;
 	//printf("mur a %d\n", i);
 	while(++i <= stop && i < PROJ_PLANE_H)
-		pixel_put(data, size, i, find_color(&data->player, &data->ray, &data->color));
+		pixel_put(data, size, i, YELLOW/*find_color(&data->player, &data->ray, &data->color)*/);
 	i -= 1;
 	//printf("sola %d\n",i);
 	while (++i < PROJ_PLANE_H)

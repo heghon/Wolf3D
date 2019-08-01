@@ -60,13 +60,15 @@
 # define X 0
 # define Y 1
 
+
 # define PROJ_PLANE_L WIN_L
 # define PROJ_PLANE_H (WIN_H - (WIN_H / 5))
 # define PLANE_DIST 1109
 # define GRID_S 256
 # define WALL_H 256
 # define PLAYER_H 128
-# define SCREEN_DIST 10
+# define FOV 60
+
 
 # define ANGLE0 0
 # define ANGLE5 107

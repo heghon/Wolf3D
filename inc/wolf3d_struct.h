@@ -25,13 +25,6 @@ typedef struct		s_tables
 	float			itan[361];
 }					t_tables;
 
-typedef struct		s_image
-{
-	int				bpp;
-	int				line;
-	int				endian;
-}					t_image;
-
 typedef struct		s_color
 {
 	unsigned int	first_color;
@@ -44,6 +37,7 @@ typedef struct		s_color
 
 typedef	struct		s_player
 {
+	/*
 	float			angle;
 	int				pos[2];
 	float			dir[2];
@@ -62,6 +56,7 @@ typedef	struct		s_player
 	int				fov;
 	int				x;
 	int				y;
+	*/
 }					t_player;
 
 typedef struct		s_mlx
@@ -73,12 +68,13 @@ typedef struct		s_mlx
 	int				bpp;
 	int				s_line;
 	int				endian;
-	clock_t			last_img;
-	clock_t			next_img;
+//	clock_t			last_img;
+//	clock_t			next_img;
 }					t_mlx;
 
 typedef struct		s_ray
 {
+	/*
 	int			dist;//
 	float			cam;
 	int				hit;
@@ -93,6 +89,7 @@ typedef struct		s_ray
 	float			angle_inc;
 	int				xa;
 	int				ya;
+	*/
 }					t_ray;
 
 typedef struct		s_map
@@ -103,17 +100,15 @@ typedef struct		s_map
 }					t_map;
 
 typedef struct		s_data
-{	
-	int				width;
-	int				height;
+{
 	t_mlx			mlx;
 	t_player		player;
 	t_map			map;
 	t_ray			ray;
-	t_tables		tables;
+//	t_tables		tables;
 	t_color			color;
-	int				start_x;
-	int				start_y;
+//	int				start_x;
+//	int				start_y;
 }					t_data;
 
 #endif
