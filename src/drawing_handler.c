@@ -35,6 +35,7 @@ void				pixel_put(t_data *data, int size, int i, unsigned int c)
 	//mlx_pixel_put(data->mlx.ptr, data->mlx.win, data->ray.nbr, i, c);
 }
 
+/*
 static unsigned int	find_color(t_player *player, t_ray *ray, t_color *color)
 {
 	int	angle;
@@ -49,7 +50,7 @@ static unsigned int	find_color(t_player *player, t_ray *ray, t_color *color)
 	//if (angle >= 90 && angle <= 270 && ray->hit == 'v')
 	return (color->fourth_color);
 
-}
+}*/
 
 void				drawing_handler(int size, int start, int stop, t_data *data)
 {

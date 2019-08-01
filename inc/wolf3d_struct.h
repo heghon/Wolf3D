@@ -90,6 +90,8 @@ typedef struct		s_ray
 	int				step[2];
 	int				hit;
 	int				side_hit;
+	int				size;
+	int				nbr;
 	/*
 	int			dist;//
 	float			cam;
@@ -121,6 +123,7 @@ typedef struct		s_data
 	t_player		player;
 	t_map			map;
 	t_ray			ray;
+	t_camera		camera;
 //	t_tables		tables;
 	t_color			color;
 //	int				start_x;

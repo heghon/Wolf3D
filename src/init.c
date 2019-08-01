@@ -75,8 +75,8 @@ static void	init_mlx(t_mlx *mlx)
 
 static void	init_player(t_player *player)
 {
-	player->pos[X] = 1;
-	player->pos[Y] = 1;
+	player->pos[X] = 2;
+	player->pos[Y] = 2;
 	player->dir[X] = 1;
 	player->dir[Y] = 0;
 	player->plane[X] = 0;
