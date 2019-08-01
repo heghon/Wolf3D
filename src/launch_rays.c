@@ -76,6 +76,7 @@ void		launch_rays(t_data *data)
 			{
 				if (data->ray.first_dist[X] < data->ray.first_dist[Y])
 				{
+					printf("passage en x\n");
 					data->ray.first_dist[X] += data->ray.delta[X];
 					data->ray.map[X] += data->ray.step[X];
 					data->ray.side_hit = 0;
