@@ -16,6 +16,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include <mlx.h>
+# include <math.h>
 
 #include <stdio.h>
 
@@ -58,11 +59,61 @@ int				loop_handler(t_data *data)
 	//	return (0);
 	//data->mlx.next_img = data->mlx.last_img + (CLOCKS_PER_SEC / 100);
 	launch_rays(data);
+
 	return (0);
+}
+
+static void movements(t_data *data, t_player *player, int key)
+{
+		float     rs;
+	float     nrs;
+	float   old_dirx;
+	float   old_planex;
+
+   old_dirx = player->dir[X];
+   old_planex = player->plane[X];
+
+   if (key == ARROW_UP)
+   {
+        if (data->map.map[(int)(player->pos[X] + player->dir[X] * player->move_speed)][(int)(player->pos[Y])] == 0)//cast int ?
+       player->pos[X] += player->dir[X] * player->move_speed;
+        if (data->map.map[(int)player->pos[X]][(int)(player->pos[Y] + player->dir[Y] * player->move_speed)] == 0)
+       player->pos[Y] += player->dir[Y] * player->move_speed;
+   }
+   if (key == ARROW_DOWN)
+   {
+        if (data->map.map[(int)(player->pos[X] - player->dir[X] * player->move_speed)][(int)player->pos[Y]] == 0)
+       player->pos[X] -= player->dir[X] * player->move_speed;
+        if (data->map.map[(int)player->pos[X]][(int)(player->pos[Y] - player->dir[Y] * player->move_speed)] == 0)
+       player->pos[Y] -= player->dir[Y] * player->move_speed;
+   }
+	if (key == ARROW_LEFT)
+   {
+       nrs = player->rot_speed * -1;
+       player->dir[X] = player->dir[X] * cos(nrs) - player->dir[Y] * sin(nrs);
+       player->dir[Y] = old_dirx * sin(nrs) + player->dir[Y] * cos(nrs);
+       player->plane[X] = player->plane[X] * cos(nrs) - player->plane[Y] * sin(nrs);
+       player->plane[Y] = old_planex * sin(nrs) + player->plane[Y] * cos(nrs);
+   }
+   if (key == ARROW_RIGHT)
+   {
+       rs = player->rot_speed;
+       player->dir[X] = player->dir[X] * cos(rs) - player->dir[Y] * sin(rs);
+       player->dir[Y] = old_dirx * sin(rs) + player->dir[Y] * cos(rs);
+       player->plane[X] = player->plane[X] * cos(rs) - player->plane[Y] * sin(rs);
+       player->plane[Y] = old_planex * sin(rs) + player->plane[Y] * cos(rs);
+   }
 }
 
 int key_handler(int key, t_data *data)
 {
+
+	if (key == ESC)
+	{
+		free(data->map.map);
+		exit(0);
+	}
+	movements(data, &data->player, key);
 	/*
 	if (key == M)
 		data->player.angle -= 1.0;
@@ -90,7 +141,7 @@ int key_handler(int key, t_data *data)
 	*///////////
 	//printf ("%f\n", data->player.angle);
 	loop_handler(data);
-	printf("\n\n\n");
+	//printf("\n\n\n");
 	return (0);
 }
 int				main(int ac, char **av)

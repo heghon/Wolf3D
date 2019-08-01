@@ -14,6 +14,7 @@
 # define WOLF3D_STRUCT_H
 
 # include <time.h>
+# include <math.h>
 
 typedef struct		camera
 {
@@ -45,6 +46,8 @@ typedef	struct		s_player
 	float			pos[2];
 	float			dir[2];
 	float			plane[2];
+	float			rot_speed;
+	float			move_speed;
 	/*
 	float			angle;
 	int				pos[2];
