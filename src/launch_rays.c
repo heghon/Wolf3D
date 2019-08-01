@@ -37,3 +37,19 @@ static void	draw_the_ray(t_data *data)
 	stop = (stop > PROJ_PLANE_H ? PROJ_PLANE_H - 1 : stop);
 	drawing_handler(size, start, stop, data);
 }
+
+static void	init_ray()
+{
+
+}	
+
+void		lanch_rays(t_data *data)
+{
+	int	i;
+
+	i = -1;
+	while (++i < WIN_L)
+	{
+		
+	}
+}

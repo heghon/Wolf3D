@@ -15,6 +15,11 @@
 
 # include <time.h>
 
+typedef struct		camera
+{
+	float			pos[2];
+}					t_camera;
+
 typedef struct		s_tables
 {
 	float			sin[361];
@@ -37,6 +42,9 @@ typedef struct		s_color
 
 typedef	struct		s_player
 {
+	float			pos[2];
+	float			dir[2];
+	float			plane[2];
 	/*
 	float			angle;
 	int				pos[2];
@@ -74,6 +82,14 @@ typedef struct		s_mlx
 
 typedef struct		s_ray
 {
+	float			dir[2];
+	int				map[2];
+	float			first_dist[2];
+	float			delta[2];
+	float			final_dist;
+	int				step[2];
+	int				hit;
+	int				side_hit;
 	/*
 	int			dist;//
 	float			cam;

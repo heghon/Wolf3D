@@ -62,7 +62,7 @@
 
 
 # define PROJ_PLANE_L WIN_L
-# define PROJ_PLANE_H (WIN_H - (WIN_H / 5))
+# define PROJ_PLANE_H (WIN_H - 200)
 # define PLANE_DIST 1109
 # define GRID_S 256
 # define WALL_H 256

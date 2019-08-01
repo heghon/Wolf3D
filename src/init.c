@@ -75,6 +75,12 @@ static void	init_mlx(t_mlx *mlx)
 
 static void	init_player(t_player *player)
 {
+	player->pos[X] = 1;
+	player->pos[Y] = 1;
+	player->dir[X] = 1;
+	player->dir[Y] = 0;
+	player->plane[X] = 0;
+	player->plane[Y] = 0.66;
 	/*
 	player->angle = 270;
 	player->pos[X] = 0;//5 * 256;//1792;//384;//32767;//32767;
