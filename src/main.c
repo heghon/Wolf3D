@@ -6,7 +6,7 @@
 /*   By: bmenant <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/25 13:55:00 by bmenant           #+#    #+#             */
-/*   Updated: 2019/07/30 15:23:01 by bmenant          ###   ########.fr       */
+/*   Updated: 2019/07/31 17:19:24 by bmenant          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include <mlx.h>
+#include <math.h>
 
 #include <stdio.h>
 
@@ -51,13 +52,23 @@ int key_handler(int key, t_data *data)
 {
 	if (key == ESC)
 	{
-		//free(data->map.map);
+		free(data->map.map);
 		exit(0);
 	}
 	if (key == ARROW_LEFT)
 		data->player.angle += (data->player.angle == 359 ? -359 : 1);
 	if (key == ARROW_RIGHT)
 		data->player.angle -= (data->player.angle == 0 ? -359 : 1);
+	if (key == ARROW_DOWN)
+	{
+		data->player.pos[Y] += cos(RAD(data->player.angle)) * data->player.move_speed;
+		data->player.pos[X] += sin(RAD(data->player.angle)) * data->player.move_speed;
+	}
+	if (key == ARROW_UP)
+	{
+		data->player.pos[Y] -= cos(RAD(data->player.angle)) * data->player.move_speed;
+		data->player.pos[X] -= sin(RAD(data->player.angle)) * data->player.move_speed;
+	}
 	expose_handler(data);
 	return (0);
 }
