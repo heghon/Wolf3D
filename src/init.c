@@ -116,6 +116,6 @@ void		init(t_data *data)
 	data->color.third_color = ORANGE;
 	data->color.fourth_color = YELLOW;
 	data->color.sky_color = 0x0088FF;
-	data->color.ground_color = BROWN;
+	data->color.ground_color = 0xFF0000;
 
 }
