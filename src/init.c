@@ -111,13 +111,11 @@ void		init(t_data *data)
 	init_player(&data->player);
 	//init_position(&data->map, &data->player);
 	init_mlx(&data->mlx);
-	/*
 	data->color.first_color = DARK_RED;
 	data->color.second_color = RED;
 	data->color.third_color = ORANGE;
 	data->color.fourth_color = YELLOW;
-	*/
 	data->color.sky_color = 0x0088FF;
-	data->color.ground_color = 0xFF8800;
+	data->color.ground_color = BROWN;
 
 }
