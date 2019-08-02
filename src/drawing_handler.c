@@ -25,9 +25,9 @@ void				pixel_put(t_data *data, int size, int i, unsigned int c)
 	x = (i * data->mlx.s_line) + (data->ray.nbr * 4);
 	//x = ((i * WIN_L) + data->ray.nbr) * 4;
 	//printf("%d\n", x);
-	data->mlx.pic[x] = c;
-	data->mlx.pic[x + 1] = c >> 8;
-	data->mlx.pic[x + 2] = c >> 16;
+	data->mlx.pic[x] = c + i;
+	data->mlx.pic[x + 1] = (c >> 8) + i;
+	data->mlx.pic[x + 2] = (c >> 16) + i;
 	//printf("5\n");
 	//*/
 	
