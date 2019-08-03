@@ -6,12 +6,14 @@
 /*   By: bmenant <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/17 13:20:50 by bmenant           #+#    #+#             */
-/*   Updated: 2019/07/30 16:01:49 by bmenant          ###   ########.fr       */
+/*   Updated: 2019/07/11 12:18:00 by bmenant          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef WOLF3D_DEFINE_H
 # define WOLF3D_DEFINE_H
+
+# include <math.h>
 
 # define A 0
 # define B 11
@@ -20,6 +22,7 @@
 # define E 14
 # define F 3
 # define G 5
+# define H 4
 # define I 34
 # define J 38
 # define K 40
@@ -33,6 +36,7 @@
 # define S 1
 # define T 17
 # define U 32
+# define V 9
 # define W 13
 # define Z 6
 # define ESC 53
@@ -54,21 +58,17 @@
 # define CLR 71
 
 # define WIN_L 1280
-# define WIN_H 1000
+# define WIN_H 800
 # define X 0
 # define Y 1
-# define H 0
-# define V 1
 
+# define FOV 66
 # define PROJ_PLANE_L WIN_L
-# define PROJ_PLANE_H (WIN_H - (WIN_H / 5))
-# define PLANE_DIST 1109
+# define PROJ_PLANE_H (WIN_H)
+# define PLANE_DIST ((WIN_L / 2) * tan((FOV / 2)* 0.017453292519943))
 # define GRID_S 256
 # define WALL_H 256
 # define PLAYER_H 128
-# define RAD(x) (x * 0.017453292519943)
-# define ANGLE_INC 0.046875
-# define FOV 60
 
 # define ANGLE0 0
 # define ANGLE5 107
@@ -84,12 +84,13 @@
 # define THREAD_NUMBER 10
 
 # define BROWN 0x825C26
-# define DARK_RED 0x820E0E
-# define RED 0xFF3700
+# define DARK_RED 0xAA0000
+# define RED 0xFF0000
 # define ORANGE 0xFF8C00
-# define YELLOW 0xFFD52A
+# define YELLOW 0xFFDD00
 # define LIGHT_YELLOW 0xFFFF00
 # define WHITE 0xFFFFFF
+# define GREEN 0x00FF00
 # define PURPLE_ASSEMBLY 0x9359AF
 
 #endif
