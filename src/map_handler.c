@@ -49,12 +49,13 @@ static int	fill_map(t_map *map, char *line)
 	j = -1;
 	while (++j < map->width)
 	{
-		if (!(line[j] == 'W' || line[j] == ' '))
+		if (!(line[j] == 'W' || line[j] == ' ' || line == 'S'))
 		{
 			free(map->map);
 			function_problem(2);
 		}
 		map->map[i][j] = (line[j] == 'W' ? 1 : 0);
+		map->map[i][j] = (line[j] == 'S' ? 2 : map->map[i][j]);
 	}
 	i++;
 	return (1);
