@@ -22,14 +22,14 @@ static void	up_and_down(t_data *data, t_player *player, int key)
 
 	x = player->dir[X] * player->move_speed * player->sprint;
 	y = player->dir[Y] * player->move_speed * player->sprint;
-	if (key == ARROW_UP)
+	if (key == ARROW_UP || key == W)
 	{
 		if (data->map.map[(int)(player->pos[X] + x)][(int)(player->pos[Y])] != 1)
 			player->pos[X] += x;
 		if (data->map.map[(int)player->pos[X]][(int)(player->pos[Y] + y)] != 1)
 			player->pos[Y] += y;
 	}
-	if (key == ARROW_DOWN)
+	if (key == ARROW_DOWN || key == S)
 	{
 		if (data->map.map[(int)(player->pos[X] - x)][(int)player->pos[Y]] != 1)
 			player->pos[X] -= x;
@@ -47,7 +47,7 @@ static void	turn(t_player *player, int key)
 
 	old_dirx = player->dir[X];
 	old_planex = player->plane[X];
-	if (key == ARROW_LEFT)
+	if (key == ARROW_LEFT || key == A)
 	{
 		nrs = player->rot_speed * -1;
 		player->dir[X] = player->dir[X] * cos(nrs) - player->dir[Y] * sin(nrs);
@@ -56,7 +56,7 @@ static void	turn(t_player *player, int key)
 			player->plane[Y] * sin(nrs);
 		player->plane[Y] = old_planex * sin(nrs) + player->plane[Y] * cos(nrs);
 	}
-	if (key == ARROW_RIGHT)
+	if (key == ARROW_RIGHT || key == D)
 	{
 		rs = player->rot_speed;
 		player->dir[X] = player->dir[X] * cos(rs) - player->dir[Y] * sin(rs);
@@ -69,8 +69,8 @@ static void	turn(t_player *player, int key)
 
 void		movements(t_data *data, t_player *player, int key)
 {
-	if (key == ARROW_UP || key == ARROW_DOWN)
+	if (key == ARROW_UP || key == ARROW_DOWN || key == W || key == S)
 		up_and_down(data, player, key);
-	if (key == ARROW_LEFT || key == ARROW_RIGHT)
+	if (key == ARROW_LEFT || key == ARROW_RIGHT || key == A || key == D)
 		turn(player, key);
 }
