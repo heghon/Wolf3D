@@ -6,7 +6,7 @@
 #    By: bmenant <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/05/13 13:10:40 by bmenant           #+#    #+#              #
-#    Updated: 2019/08/03 13:19:45 by bmenant          ###   ########.fr        #
+#    Updated: 2019/08/03 15:10:58 by bmenant          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,7 +48,7 @@ all : $(NAME)
 $(NAME) : $(OBJ)
 	@ make -C./libft/
 	@ $(CC) $(LFLAGS) $(OBJ) -o $@ $(FLAGS) -fsanitize=address
-	@echo "$(BLUE)-$(NAME)	$(OK)"
+	@echo "$(BLUE)-$(NAME)		$(OK)"
 
 $(OBJ_FILE)%.o : $(SRC_FILE)%.c
 	@ mkdir $(OBJ_FILE) 2> /dev/null || true
