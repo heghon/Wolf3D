@@ -6,7 +6,7 @@
 #    By: bmenant <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/05/13 13:10:40 by bmenant           #+#    #+#              #
-#    Updated: 2019/08/01 16:43:52 by bmenant          ###   ########.fr        #
+#    Updated: 2019/08/03 13:00:29 by bmenant          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -70,7 +70,7 @@ push:
 	@git add -A
 	@git commit -m "make push"
 	@echo "\n$(BLUE)-COMMIT	$(OK)"
-	@git push origin sseneca
+	@git push origin propre
 	@echo "\n$(BLUE)-PUSH	$(OK)"
 
 test : re

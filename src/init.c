@@ -81,8 +81,8 @@ static void	init_player(t_player *player)
 	player->dir[Y] = 0.0;
 	player->plane[X] = 0;
 	player->plane[Y] = 0.66;
-	player->move_speed = 0.3;
-	player->rot_speed = 0.3;
+	player->move_speed = 0.2;
+	player->rot_speed = 0.15;
 	/*
 	player->angle = 270;
 	player->pos[X] = 0;//5 * 256;//1792;//384;//32767;//32767;

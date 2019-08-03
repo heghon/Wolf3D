@@ -13,6 +13,8 @@
 #ifndef WOLF3D_DEFINE_H
 # define WOLF3D_DEFINE_H
 
+# include <math.h>
+
 # define A 0
 # define B 11
 # define C 8
@@ -55,20 +57,18 @@
 # define MINUS 78
 # define CLR 71
 
-# define WIN_L 1280
-# define WIN_H 1000
+# define WIN_L 320
+# define WIN_H 200
 # define X 0
 # define Y 1
 
-
+# define FOV 66
 # define PROJ_PLANE_L WIN_L
-# define PROJ_PLANE_H (WIN_H - 200)
-# define PLANE_DIST 1109
+# define PROJ_PLANE_H (WIN_H)
+# define PLANE_DIST ((WIN_L / 2) * tan((FOV / 2)* 0.017453292519943))
 # define GRID_S 256
 # define WALL_H 256
 # define PLAYER_H 128
-# define FOV 60
-
 
 # define ANGLE0 0
 # define ANGLE5 107
