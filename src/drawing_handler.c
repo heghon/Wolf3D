@@ -56,14 +56,16 @@ static void				pixel_put_test(t_data *data, int size, int i, unsigned int c)
 static void				pixel_put_double(t_data *data, int size, int i, unsigned int c)
 {
 	//*
-	int	x;
+	int		x;
 
 	x = (i * data->mlx.s_line) + (data->ray.nbr * 4);
 	//x = ((i * WIN_L) + data->ray.nbr) * 4;
 	//printf("%d\n", x);
-	data->mlx.pic[x] = c / (float)(4 - ((float)(i - 600) / 100);
-	data->mlx.pic[x + 1] = (c >> 8 / (float)(4 - ((float)(i - 600) / 100));
-	data->mlx.pic[x + 2] = (float)(c >> 16) / (float)(4 - ((float)(i - 600) / 100));
+	if (i == 0 || i == 1000)
+		printf("size = %d\n", size);
+	data->mlx.pic[x] = (float)c * (float)(size / 800.0);
+	data->mlx.pic[x + 1] = (float)(c >> 8);
+	data->mlx.pic[x + 2] = (float)(c >> 16);
 	//printf("5\n");
 	//*/
 	
@@ -96,7 +98,7 @@ void				drawing_handler(int size, int start, int stop, t_data *data)
 	i -= 1;
 	//printf("mur a %d\n", i);
 	while(++i <= stop && i < PROJ_PLANE_H)
-		pixel_put_double(data, size, i, find_color(&data->player, &data->ray, &data->color));
+		pixel_put_double(data, stop - start, i, find_color(&data->player, &data->ray, &data->color));
 	i -= 1;
 	//printf("sola %d\n",i);
 	while (++i < PROJ_PLANE_H)

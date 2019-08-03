@@ -84,12 +84,13 @@
 # define THREAD_NUMBER 10
 
 # define BROWN 0x825C26
-# define DARK_RED 0x820E0E
-# define RED 0xFF3700
+# define DARK_RED 0xAA0000
+# define RED 0xFF0000
 # define ORANGE 0xFF8C00
-# define YELLOW 0xFFD52A
+# define YELLOW 0xFFDD00
 # define LIGHT_YELLOW 0xFFFF00
 # define WHITE 0xFFFFFF
+# define GREEN 0x00FF00
 # define PURPLE_ASSEMBLY 0x9359AF
 
 #endif
