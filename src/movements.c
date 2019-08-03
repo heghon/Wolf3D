@@ -33,7 +33,7 @@ static void	up_and_down(t_data *data, t_player *player, int key)
 	{
 		if (data->map.map[(int)(player->pos[X] - x)][(int)player->pos[Y]] != 1)
 			player->pos[X] -= x;
-		if (data->map.map[(int)player->pos[X]][(int)(player->pos[Y] -y)] != 1)
+		if (data->map.map[(int)player->pos[X]][(int)(player->pos[Y] - y)] != 1)
 			player->pos[Y] -= y;
 	}
 }
@@ -67,10 +67,35 @@ static void	turn(t_player *player, int key)
 	}
 }
 
+static void	draft(t_data *data, t_player *player, int key)
+{
+	float	x;
+	float	y;
+
+	x = player->plane[X] * player->move_speed;
+	y = player->plane[Y] * player->move_speed;
+	if (key == E)
+	{
+		if (data->map.map[(int)(player->pos[X] + x)][(int)(player->pos[Y])] != 1)
+			player->pos[X] += x;
+		if (data->map.map[(int)player->pos[X]][(int)(player->pos[Y] + y)] != 1)
+			player->pos[Y] += y;
+	}
+	if (key == Q)
+	{
+		if (data->map.map[(int)(player->pos[X] - x)][(int)player->pos[Y]] != 1)
+			player->pos[X] -= x;
+		if (data->map.map[(int)player->pos[X]][(int)(player->pos[Y] - y)] != 1)
+			player->pos[Y] -= y;
+	}
+}
+
 void		movements(t_data *data, t_player *player, int key)
 {
 	if (key == ARROW_UP || key == ARROW_DOWN || key == W || key == S)
 		up_and_down(data, player, key);
 	if (key == ARROW_LEFT || key == ARROW_RIGHT || key == A || key == D)
 		turn(player, key);
+	if (key == Q || key == E)
+		draft(data, player, key);
 }
