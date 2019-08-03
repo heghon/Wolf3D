@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../inc/wolf3d.h"
 #include "../inc/wolf3d_define.h"
 #include "../inc/wolf3d_struct.h"
 #include <math.h>
@@ -36,7 +37,7 @@ static void	up_and_down(t_data *data, t_player *player, int key)
 	}
 }
 
-static void	turn(t_data *data, t_player *player, int key)
+static void	turn(t_player *player, int key)
 {
 	float	rs;
 	float	nrs;
@@ -70,5 +71,5 @@ void		movements(t_data *data, t_player *player, int key)
 	if (key == ARROW_UP || key == ARROW_DOWN)
 		up_and_down(data, player, key);
 	if (key == ARROW_LEFT || key == ARROW_RIGHT)
-		turn(data, player, key);
+		turn(player, key);
 }

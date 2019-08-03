@@ -18,7 +18,7 @@
 #include <mlx.h>
 #include <math.h>
 
-static int		close_window(void *param)
+static int		close_window(t_data *data)
 {
 	free(data->map.map);
 	exit(0);
@@ -57,8 +57,6 @@ int				key_handler(int key, t_data *data)
 int				main(int ac, char **av)
 {
 	t_data		data;
-	int			i;
-	int			j;
 
 	if (ac != 2)
 		function_problem(0);

@@ -17,7 +17,7 @@
 
 #include <stdio.h>
 
-void				pixel_put(t_data *data, int size, int i, unsigned int c)
+void				pixel_put(t_data *data, int i, unsigned int c)
 {
 	int		x;
 
@@ -27,7 +27,7 @@ void				pixel_put(t_data *data, int size, int i, unsigned int c)
 	data->mlx.pic[x + 2] = (c >> 16);
 }
 
-static void			pixel_put_two(t_data *data, int size, int i, unsigned int c)
+static void			pixel_put_two(t_data *data, int i, unsigned int c)
 {
 	int		x;
 
@@ -48,31 +48,30 @@ static void			pixel_put_double(t_data *data, int i, unsigned int c)
 	data->mlx.pic[x + 2] = (float)(c >> 16);
 }
 
-static unsigned int	find_color(t_player *player, t_ray *ray, t_color *color)
+static unsigned int	find_color(t_ray *ray, t_color *color)
 {
 	if (ray->dir[X] > 0 && ray->side_hit == 0)
 		return (color->first_color);
 	else if (ray->dir[X] <= 0 && ray->side_hit == 0)
 		return (color->second_color);
-	if (ray->dir[y] > 0 && ray->side_hit == 1)
+	if (ray->dir[Y] > 0 && ray->side_hit == 1)
 		return (color->third_color);
-	else if (ray->dir[y] <= 0 && ray->side_hit == 1)
+	else if (ray->dir[Y] <= 0 && ray->side_hit == 1)
 		return (color->fourth_color);
 	return (0);
 }
 
-void				drawing_handler(int size, int start, int stop, t_data *data)
+void				drawing_handler(int start, int stop, t_data *data)
 {
 	int		i;
 
 	i = -1;
 	while (++i < start)
-		pixel_put(data, size, i, data->color.sky_color / (float)(i + 150));
+		pixel_put(data, i, data->color.sky_color / (float)(i + 150));
 	i -= 1;
 	while (++i <= stop && i < PROJ_PLANE_H)
-		pixel_put_double(data, i, find_color(&data->player,
-					&data->ray, &data->color));
+		pixel_put_double(data, i, find_color(&data->ray, &data->color));
 	i -= 1;
 	while (++i < PROJ_PLANE_H)
-		pixel_put_two(data, size, i, data->color.ground_color);
+		pixel_put_two(data, i, data->color.ground_color);
 }

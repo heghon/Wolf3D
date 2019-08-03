@@ -29,14 +29,14 @@ static void	draw_the_ray(t_data *data)
 	start = (start < 0 ? 0 : start);
 	stop = data->ray.size / 2 + PROJ_PLANE_H / 2;
 	stop = (stop >= PROJ_PLANE_H ? PROJ_PLANE_H - 1 : stop);
-	drawing_handler(data->ray.size, start, stop, data);
+	drawing_handler(start, stop, data);
 }
 
-static void	init_ray(t_ray *ray, t_camera *cam, t_player *player)
+static void	init_ray(t_ray *ray, t_player *player)
 {
-	cam->pos[X] = 2 * ray->nbr / (float)WIN_L - 1;
-	ray->dir[X] = player->dir[X] + player->plane[X] * cam->pos[X];
-	ray->dir[Y] = player->dir[Y] + player->plane[Y] * cam->pos[X];
+	ray->camx = 2 * ray->nbr / (float)WIN_L - 1;
+	ray->dir[X] = player->dir[X] + player->plane[X] * ray->camx;
+	ray->dir[Y] = player->dir[Y] + player->plane[Y] * ray->camx;
 	ray->map[X] = (int)player->pos[X];
 	ray->map[Y] = (int)player->pos[Y];
 	ray->delta[X] = fabs(1 / ray->dir[X]);
@@ -87,7 +87,7 @@ void		launch_rays(t_data *data)
 	{
 		j = -1;
 		data->ray.nbr = i;
-		init_ray(&data->ray, &data->camera, &data->player);
+		init_ray(&data->ray, &data->player);
 		first_while(data, j);
 		if (data->ray.side_hit == 0)
 		{

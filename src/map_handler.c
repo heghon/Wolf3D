@@ -15,6 +15,45 @@
 #include <fcntl.h>
 #include "../libft/libft.h"
 #include <stdlib.h>
+#include <stdio.h>
+
+static void	map_check(int **map, int width, int height)
+{
+	int	i;
+	int	j;
+
+	i = -1;
+	printf("width = %d et height = %d\n", width, height);
+	while (++i < height)
+	{
+		j = -1;
+		while (++j < width)
+		{
+			ft_putnbr(map[i][j]);
+			ft_putchar(' ');
+		}
+		printf("   i = %d et j = %d\n", i, j);
+	}
+	i = -1;
+	while (++i < height)
+	{
+		printf("test, width = %d\n", width);
+		if (map[i][0] != 1 || map[i][width + 1] != 1)
+		{
+			free(map);
+			function_problem(2);
+		}
+	}
+	i = -1;
+	while (++i < width)
+	{
+		if (map[0][i] != 1 || map[height][i] != 1)
+		{
+			free(map);
+			function_problem(2);
+		}
+	}
+}
 
 static int	fill_map(t_map *map, char *line)
 {
@@ -35,6 +74,7 @@ void		map_handler(t_map *map, char *str)
 
 	if ((fd = open(str, O_RDONLY)) == -1)
 		function_problem(1);
+	map->height = 0;
 	while (get_next_line(fd, &line) == 1 && ++map->height)
 	{
 		map->width = ft_strlen(line);
@@ -47,4 +87,5 @@ void		map_handler(t_map *map, char *str)
 	while (get_next_line(fd, &line) == 1 && fill_map(map, line))
 		free(line);
 	close(fd);
+	map_check(map->map, map->width, map->height);
 }
