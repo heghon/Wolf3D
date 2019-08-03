@@ -17,27 +17,24 @@
 
 static void	up_and_down(t_data *data, t_player *player, int key)
 {
+	float	x;
+	float	y;
+
+	x = player->dir[X] * player->move_speed * player->sprint;
+	y = player->dir[Y] * player->move_speed * player->sprint;
 	if (key == ARROW_UP)
 	{
-		if (data->map.map[(int)(player->pos[X] + player->dir[X] *
-					player->move_speed)][(int)(player->pos[Y])] != 1)
-			player->pos[X] += player->dir[X] * player->move_speed *
-			player->sprint;
-		if (data->map.map[(int)player->pos[X]][(int)(player->pos[Y] +
-					player->dir[Y] * player->move_speed)] != 1)
-			player->pos[Y] += player->dir[Y] * player->move_speed *
-			player->sprint;
+		if (data->map.map[(int)(player->pos[X] + x)][(int)(player->pos[Y])] != 1)
+			player->pos[X] += x;
+		if (data->map.map[(int)player->pos[X]][(int)(player->pos[Y] + y)] != 1)
+			player->pos[Y] += y;
 	}
 	if (key == ARROW_DOWN)
 	{
-		if (data->map.map[(int)(player->pos[X] - player->dir[X] *
-					player->move_speed)][(int)player->pos[Y]] != 1)
-			player->pos[X] -= player->dir[X] * player->move_speed *
-			player->sprint;
-		if (data->map.map[(int)player->pos[X]][(int)(player->pos[Y] -
-					player->dir[Y] * player->move_speed)] != 1)
-			player->pos[Y] -= player->dir[Y] * player->move_speed *
-			player->sprint;
+		if (data->map.map[(int)(player->pos[X] - x)][(int)player->pos[Y]] != 1)
+			player->pos[X] -= x;
+		if (data->map.map[(int)player->pos[X]][(int)(player->pos[Y] -y)] != 1)
+			player->pos[Y] -= y;
 	}
 }
 
