@@ -57,8 +57,8 @@
 # define MINUS 78
 # define CLR 71
 
-# define WIN_L 320
-# define WIN_H 200
+# define WIN_L 1280
+# define WIN_H 800
 # define X 0
 # define Y 1
 
@@ -92,5 +92,11 @@
 # define WHITE 0xFFFFFF
 # define GREEN 0x00FF00
 # define PURPLE_ASSEMBLY 0x9359AF
+
+# define FILE1 "pics/brick.xpm"
+# define FILE2 "pics/purplestone.xpm"
+# define FILE3 "pics/eagle.xpm"
+# define FILE4 "pics/wood.xpm"
+# define TEX_S 64
 
 #endif

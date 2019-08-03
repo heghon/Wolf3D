@@ -6,7 +6,7 @@
 /*   By: bmenant <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/05 13:03:36 by bmenant           #+#    #+#             */
-/*   Updated: 2019/07/27 15:19:23 by bmenant          ###   ########.fr       */
+/*   Updated: 2019/08/03 13:57:37 by bmenant          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,88 +17,80 @@
 
 #include <stdio.h>
 
-void				pixel_put(t_data *data, int size, int i, unsigned int c)
+void				pixel_put(t_data *data, int i, unsigned int c)
 {
-	//*
-	int	x;
-
-	x = (i * data->mlx.s_line) + (data->ray.nbr * 4);
-	//x = ((i * WIN_L) + data->ray.nbr) * 4;
-	//printf("%d\n", x);
-	data->mlx.pic[x] = c;
-	data->mlx.pic[x + 1] = (c >> 8);
-	data->mlx.pic[x + 2] = (c >> 16);
-	//printf("5\n");
-	//*/
-	
-	//size = size;
-	//mlx_pixel_put(data->mlx.ptr, data->mlx.win, data->ray.nbr, i, c);
-}
-
-static void				pixel_put_test(t_data *data, int size, int i, unsigned int c)
-{
-	//*
-	int	x;
-
-	x = (i * data->mlx.s_line) + (data->ray.nbr * 4);
-	//x = ((i * WIN_L) + data->ray.nbr) * 4;
-	//printf("%d\n", x);
-	data->mlx.pic[x] = c;
-	data->mlx.pic[x + 1] = (c >> 8);
-	data->mlx.pic[x + 2] = (float)(c >> 16) / (float)(((float)(4 - (float)(i - 100) / 100)));
-	//printf("5\n");
-	//*/
-	
-	//size = size;
-	//mlx_pixel_put(data->mlx.ptr, data->mlx.win, data->ray.nbr, i, c);
-}
-
-static void				pixel_put_double(t_data *data, int i, unsigned int c)
-{
-	//*
 	int		x;
 
 	x = (i * data->mlx.s_line) + (data->ray.nbr * 4);
-	//x = ((i * WIN_L) + data->ray.nbr) * 4;
-	//printf("%d\n", x);
+	data->mlx.pic[x] = c;
+	data->mlx.pic[x + 1] = (c >> 8);
+	data->mlx.pic[x + 2] = (c >> 16);
+}
+
+static void			pixel_put_two(t_data *data, int i, unsigned int c)
+{
+	int		x;
+
+	x = (i * data->mlx.s_line) + (data->ray.nbr * 4);
+	data->mlx.pic[x] = c;
+	data->mlx.pic[x + 1] = (c >> 8);
+	data->mlx.pic[x + 2] = (float)(c >> 16) / (float)(PROJ_PLANE_H / 200 -
+			((float)(i - 600) / 100));
+}
+/*
+static void			pixel_put_double(t_data *data, int i, unsigned int c)
+{
+	int		x;
+
+	x = (i * data->mlx.s_line) + (data->ray.nbr * 4);
 	data->mlx.pic[x] = (float)c;
 	data->mlx.pic[x + 1] = (float)(c >> 8);
 	data->mlx.pic[x + 2] = (float)(c >> 16);
-	//printf("5\n");
-	//*/
-	
-	//size = size;
-	//mlx_pixel_put(data->mlx.ptr, data->mlx.win, data->ray.nbr, i, c);
 }
-
-static unsigned int	find_color(t_player *player, t_ray *ray, t_color *color)
+*/
+static unsigned int	choose_tex(t_ray *ray)
 {
 	if (ray->dir[X] > 0 && ray->side_hit == 0)
-		return (color->first_color);
-	else if (ray->dir[X] <= 0 && ray->side_hit == 0)
-		return (color->second_color);
+		return (0);
+	if (ray->dir[X] <= 0 && ray->side_hit == 0)
+		return (1);
 	if (ray->dir[Y] > 0 && ray->side_hit == 1)
-		return (color->third_color);
-	//if (angle >= 90 && angle <= 270 && ray->hit == 'v')
-	return (color->fourth_color);
-
+		return (2);
+	if (ray->dir[Y] <= 0 && ray->side_hit == 1)
+		return (3);
+	return (0);
 }
 
-void				drawing_handler(int size, int start, int stop, t_data *data)
+static void		pixel_put_tex(t_data *data, int size, int i, unsigned int t)
 {
-	int				i;
-	
+	int d;
+	int	x;
+	if (size)
+	;
+	//if (size > WIN_H)
+	//	size = WIN_H;
+	x = (i * data->mlx.s_line) + (data->ray.nbr * 4);
+	d = i * 1024 - PROJ_PLANE_H * 512 + data->ray.size * 512;
+	data->ray.tex[Y] = ((d * TEX_S) / data->ray.size) / 1024;
+	d = data->ray.tex[Y] * TEX_S + data->ray.tex[X];
+	d *= 4;
+	//printf("%d ", data->ray.tex[Y]);
+	data->mlx.pic[x] = data->mlx.texpic[t][d];
+	data->mlx.pic[x + 1] = data->mlx.texpic[t][d + 1];
+	data->mlx.pic[x + 2] = data->mlx.texpic[t][d + 2];
+}
+void				drawing_handler(int start, int stop, t_data *data)
+{
+	int		i;
+
 	i = -1;
-	//printf("size = %d\n", size);
-	//printf("ciel\n");
 	while (++i < start)
-		pixel_put(data, size, i, data->color.sky_color / (float)(i + 150));
+		pixel_put(data, i, data->color.sky_color / (float)(i + 150));
 	i -= 1;
-	//printf("mur a %d\n", i);
-	while(++i <= stop && i < PROJ_PLANE_H)
-		pixel_put_double(data, i, find_color(&data->player, &data->ray, &data->color));
+	while (++i <= stop && i < PROJ_PLANE_H)
+		pixel_put_tex(data, stop - start, i, choose_tex(&data->ray));
+		//pixel_put_double(data, i, find_color(&data->ray, &data->color));
 	i -= 1;
-	//printf("sola %d\n",i);
 	while (++i < PROJ_PLANE_H)
-		pixel_put_test(data, size, i, data->color.ground_color);
+		pixel_put_two(data, i, data->color.ground_color);
 }

@@ -6,7 +6,7 @@
 #    By: bmenant <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/05/13 13:10:40 by bmenant           #+#    #+#              #
-#    Updated: 2019/08/03 13:02:40 by bmenant          ###   ########.fr        #
+#    Updated: 2019/08/03 17:12:51 by sseneca          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,8 @@ SRCS =	main.c \
 		init.c \
 		map_handler.c \
 		drawing_handler.c \
-		launch_rays.c
+		launch_rays.c \
+		movements.c
 
 
 OBJS = $(SRCS:.c=.o)
@@ -34,7 +35,7 @@ SRC = $(addprefix $(SRC_FILE),$(SRCS))
 OBJ = $(addprefix $(OBJ_FILE),$(OBJS))
 
 FLAGS = -lmlx -framework OpenGL -framework AppKit
-CFLAGS =# -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror
 IFLAGS = -I ./inc/
 LFLAGS = ./libft/libft.a
 
@@ -47,7 +48,7 @@ all : $(NAME)
 $(NAME) : $(OBJ)
 	@ make -C./libft/
 	@ $(CC) $(LFLAGS) $(OBJ) -o $@ $(FLAGS) -fsanitize=address
-	@echo "$(BLUE)-$(NAME)	$(OK)"
+	@echo "$(BLUE)-$(NAME)		$(OK)"
 
 $(OBJ_FILE)%.o : $(SRC_FILE)%.c
 	@ mkdir $(OBJ_FILE) 2> /dev/null || true
