@@ -6,7 +6,7 @@
 /*   By: bmenant <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/25 13:55:00 by bmenant           #+#    #+#             */
-/*   Updated: 2019/07/25 14:30:29 by bmenant          ###   ########.fr       */
+/*   Updated: 2019/08/03 13:35:37 by bmenant          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,11 @@
 #include <stdlib.h>
 #include <time.h>
 #include <mlx.h>
-# include <math.h>
-
-#include <stdio.h>
+#include <math.h>
 
 static int		close_window(void *param)
 {
-	(void)param;
+	free(data->map.map);
 	exit(0);
 	return (0);
 }
@@ -40,135 +38,36 @@ void			function_problem(int mode)
 
 int				loop_handler(t_data *data)
 {
-	/*
-	if (data->player.forward_move)
-		forward_move(data);
-	if (data->player.backward_move)
-		backward_move(data);
-	if (data->player.right_move)
-		right_move(data);
-	if (data->player.left_move)
-		left_move(data);
-	if (data->player.up_move)
-		jump_handler(data);
-	if (data->player.down_move)
-		crouch_handler(data);
-		*/
-	//	data->mlx.last_img = clock();
-	//if (data->mlx.next_img > data->mlx.last_img)
-	//	return (0);
-	//data->mlx.next_img = data->mlx.last_img + (CLOCKS_PER_SEC / 100);
 	launch_rays(data);
-
 	return (0);
 }
 
-static void movements(t_data *data, t_player *player, int key)
+int				key_handler(int key, t_data *data)
 {
-		float     rs;
-	float     nrs;
-	float   old_dirx;
-	float   old_planex;
-
-   old_dirx = player->dir[X];
-   old_planex = player->plane[X];
-
-   if (key == ARROW_UP)
-   {
-        if (data->map.map[(int)(player->pos[X] + player->dir[X] * player->move_speed)][(int)(player->pos[Y])] == 0)//cast int ?
-       player->pos[X] += player->dir[X] * player->move_speed;
-        if (data->map.map[(int)player->pos[X]][(int)(player->pos[Y] + player->dir[Y] * player->move_speed)] == 0)
-       player->pos[Y] += player->dir[Y] * player->move_speed;
-   }
-   if (key == ARROW_DOWN)
-   {
-        if (data->map.map[(int)(player->pos[X] - player->dir[X] * player->move_speed)][(int)player->pos[Y]] == 0)
-       player->pos[X] -= player->dir[X] * player->move_speed;
-        if (data->map.map[(int)player->pos[X]][(int)(player->pos[Y] - player->dir[Y] * player->move_speed)] == 0)
-       player->pos[Y] -= player->dir[Y] * player->move_speed;
-   }
-	if (key == ARROW_LEFT)
-   {
-       nrs = player->rot_speed * -1;
-       player->dir[X] = player->dir[X] * cos(nrs) - player->dir[Y] * sin(nrs);
-       player->dir[Y] = old_dirx * sin(nrs) + player->dir[Y] * cos(nrs);
-       player->plane[X] = player->plane[X] * cos(nrs) - player->plane[Y] * sin(nrs);
-       player->plane[Y] = old_planex * sin(nrs) + player->plane[Y] * cos(nrs);
-   }
-   if (key == ARROW_RIGHT)
-   {
-       rs = player->rot_speed;
-       player->dir[X] = player->dir[X] * cos(rs) - player->dir[Y] * sin(rs);
-       player->dir[Y] = old_dirx * sin(rs) + player->dir[Y] * cos(rs);
-       player->plane[X] = player->plane[X] * cos(rs) - player->plane[Y] * sin(rs);
-       player->plane[Y] = old_planex * sin(rs) + player->plane[Y] * cos(rs);
-   }
-}
-
-int key_handler(int key, t_data *data)
-{
-
 	if (key == ESC)
 	{
 		free(data->map.map);
 		exit(0);
 	}
 	movements(data, &data->player, key);
-	/*
-	if (key == M)
-		data->player.angle -= 1.0;
-	else if (key == N)
-		data->player.angle += 1.0;
-	else if (key == ARROW_LEFT)
-		data->player.pos[Y] -= 64;
-	else if (key == ARROW_RIGHT)
-		data->player.pos[Y] += 64;
-	else if (key == ARROW_UP)
-		data->player.pos[X] += 64;
-	else if (key == ARROW_DOWN)
-		data->player.pos[X] -= 64;
-	//////////VERIF
-	if (data->player.pos[X] < 0)
-		data->player.pos[X] += 64;
-	if (data->player.pos[Y] < 0)
-		data->player.pos[Y] += 64;
-	if (data->player.pos[X] > data->map.width * 256)
-		data->player.pos[X] -= 64;
-	if (data->player.pos[Y] > data->map.height * 256)
-		data->player.pos[Y] -= 64;
-	data->player.angle = data->player.angle == -1 ? 359 : data->player.angle;
-	data->player.angle = data->player.angle == 360 ? 0 : data->player.angle;
-	*///////////
-	//printf ("%f\n", data->player.angle);
 	loop_handler(data);
-	//printf("\n\n\n");
 	return (0);
 }
+
 int				main(int ac, char **av)
 {
 	t_data		data;
-	int i;
-	int j;
+	int			i;
+	int			j;
 
 	if (ac != 2)
 		function_problem(0);
 	map_handler(&data.map, av[1]);
-/*	
-	i = -1;
-	while (++i < data.map.height)
-	{
-		j = -1;
-		while (++j < data.map.width)
-			printf("%d ", data.map.map[i][j]);
-		printf(" w = %d h = %d \n", data.map.width, data.map.height);
-	}
-*/
 	init(&data);
 	data.mlx.win = mlx_new_window(data.mlx.ptr, WIN_L, WIN_H, "WOLFENSTEIN");
 	loop_handler(&data);
 	mlx_hook(data.mlx.win, 2, 5, key_handler, &data);
-	mlx_hook(data.mlx.win, 17, 0L, close_window, (void*)0);
-	//mlx_loop_hook(data.mlx.win, loop_handler, &data);
+	mlx_hook(data.mlx.win, 17, 0L, close_window, &data);
 	mlx_loop(data.mlx.ptr);
 	return (0);
 }
