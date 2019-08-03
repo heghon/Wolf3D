@@ -20,25 +20,11 @@
 static void	map_check(int **map, int width, int height)
 {
 	int	i;
-	int	j;
 
 	i = -1;
-	printf("width = %d et height = %d\n", width, height);
 	while (++i < height)
 	{
-		j = -1;
-		while (++j < width)
-		{
-			ft_putnbr(map[i][j]);
-			ft_putchar(' ');
-		}
-		printf("   i = %d et j = %d\n", i, j);
-	}
-	i = -1;
-	while (++i < height)
-	{
-		printf("test, width = %d\n", width);
-		if (map[i][0] != 1 || map[i][width + 1] != 1)
+		if (map[i][0] != 1 || map[i][width - 1] != 1)
 		{
 			free(map);
 			function_problem(2);
@@ -47,7 +33,7 @@ static void	map_check(int **map, int width, int height)
 	i = -1;
 	while (++i < width)
 	{
-		if (map[0][i] != 1 || map[height][i] != 1)
+		if (map[0][i] != 1 || map[height - 1][i] != 1)
 		{
 			free(map);
 			function_problem(2);
@@ -62,7 +48,14 @@ static int	fill_map(t_map *map, char *line)
 
 	j = -1;
 	while (++j < map->width)
+	{
+		if(!(line[j] == 'W' || line[j] == ' '))
+		{
+			free(map->map);
+			function_problem(2);
+		}
 		map->map[i][j] = (line[j] == 'W' ? 1 : 0);
+	}
 	i++;
 	return (1);
 }
@@ -77,6 +70,8 @@ void		map_handler(t_map *map, char *str)
 	map->height = 0;
 	while (get_next_line(fd, &line) == 1 && ++map->height)
 	{
+		if (map->height > 1 && map->width != (int)ft_strlen(line))
+			function_problem(2);
 		map->width = ft_strlen(line);
 		free(line);
 	}
