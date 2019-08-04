@@ -71,6 +71,7 @@
 # define PLAYER_H 128
 # define SIZEX2 (WALL_H * 2)
 # define SIZEX4 (WALL_H * 4)
+# define HB 0.03
 
 # define ANGLE0 0
 # define ANGLE5 107
