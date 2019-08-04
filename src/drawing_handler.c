@@ -37,17 +37,26 @@ static void			pixel_put_two(t_data *data, int i, unsigned int c)
 	data->mlx.pic[x + 2] = (float)(c >> 16) / (float)(PROJ_PLANE_H / 200 -
 			((float)(i - 600) / 100));
 }
-/*
-static void			pixel_put_double(t_data *data, int i, unsigned int c)
-{
-	int		x;
 
+static void		pixel_put_tex(t_data *data, int size, int i, unsigned int t)
+{
+	int d;
+	int	x;
+	if (size)
+	;
+	//if (size > WIN_H)
+	//	size = WIN_H;
 	x = (i * data->mlx.s_line) + (data->ray.nbr * 4);
-	data->mlx.pic[x] = (float)c;
-	data->mlx.pic[x + 1] = (float)(c >> 8);
-	data->mlx.pic[x + 2] = (float)(c >> 16);
+	d = i * SIZEX4 - PROJ_PLANE_H * SIZEX2 + data->ray.size * SIZEX2;
+	data->ray.tex[Y] = ((d * TEX_S) / data->ray.size) / SIZEX4;
+	d = data->ray.tex[Y] * TEX_S + data->ray.tex[X];
+	d *= 4;
+	//printf("%d ", data->ray.tex[Y]);
+	data->mlx.pic[x] = data->mlx.texpic[t][d];
+	data->mlx.pic[x + 1] = data->mlx.texpic[t][d + 1];
+	data->mlx.pic[x + 2] = data->mlx.texpic[t][d + 2];
 }
-*/
+
 static unsigned int	choose_tex(t_ray *ray)
 {
 	if (ray->dir[X] > 0 && ray->side_hit == 0)
@@ -61,24 +70,6 @@ static unsigned int	choose_tex(t_ray *ray)
 	return (0);
 }
 
-static void		pixel_put_tex(t_data *data, int size, int i, unsigned int t)
-{
-	int d;
-	int	x;
-	if (size)
-	;
-	//if (size > WIN_H)
-	//	size = WIN_H;
-	x = (i * data->mlx.s_line) + (data->ray.nbr * 4);
-	d = i * 1024 - PROJ_PLANE_H * 512 + data->ray.size * 512;
-	data->ray.tex[Y] = ((d * TEX_S) / data->ray.size) / 1024;
-	d = data->ray.tex[Y] * TEX_S + data->ray.tex[X];
-	d *= 4;
-	//printf("%d ", data->ray.tex[Y]);
-	data->mlx.pic[x] = data->mlx.texpic[t][d];
-	data->mlx.pic[x + 1] = data->mlx.texpic[t][d + 1];
-	data->mlx.pic[x + 2] = data->mlx.texpic[t][d + 2];
-}
 void				drawing_handler(int start, int stop, t_data *data)
 {
 	int		i;
@@ -89,7 +80,6 @@ void				drawing_handler(int start, int stop, t_data *data)
 	i -= 1;
 	while (++i <= stop && i < PROJ_PLANE_H)
 		pixel_put_tex(data, stop - start, i, choose_tex(&data->ray));
-		//pixel_put_double(data, i, find_color(&data->ray, &data->color));
 	i -= 1;
 	while (++i < PROJ_PLANE_H)
 		pixel_put_two(data, i, data->color.ground_color);

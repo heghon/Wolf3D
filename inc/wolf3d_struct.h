@@ -33,6 +33,7 @@ typedef	struct		s_player
 	float			plane[2];
 	float			rot_speed;
 	float			move_speed;
+	int				sprint;
 }					t_player;
 
 typedef struct		s_mlx

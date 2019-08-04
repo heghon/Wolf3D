@@ -69,6 +69,8 @@
 # define GRID_S 256
 # define WALL_H 256
 # define PLAYER_H 128
+# define SIZEX2 (WALL_H * 2)
+# define SIZEX4 (WALL_H * 4)
 
 # define ANGLE0 0
 # define ANGLE5 107
@@ -98,5 +100,5 @@
 # define FILE3 "pics/eagle.xpm"
 # define FILE4 "pics/wood.xpm"
 # define TEX_S 64
-
+# define SKY_S 894
 #endif

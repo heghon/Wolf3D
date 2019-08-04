@@ -49,6 +49,8 @@ int				key_handler(int key, t_data *data)
 		free(data->map.map);
 		exit(0);
 	}
+	if (key == L_SHIFT)
+		data->player.sprint += (data->player.sprint == 1 ? 1 : -1);
 	movements(data, &data->player, key);
 	loop_handler(data);
 	return (0);
