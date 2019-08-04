@@ -17,6 +17,7 @@
 #include <time.h>
 #include <mlx.h>
 #include <math.h>
+#include <unistd.h>
 
 static int		close_window(t_data *data)
 {
@@ -51,6 +52,8 @@ int				key_handler(int key, t_data *data)
 	}
 	if (key == L_SHIFT)
 		data->player.sprint += (data->player.sprint == 1 ? 1 : -1);
+	if (key == SPACE && data->map.map[(int)data->player.pos[X]][(int)data->player.pos[Y]] == 3)
+		teleportation(data, &data->player, data->map.map);
 	movements(data, &data->player, key);
 	loop_handler(data);
 	return (0);

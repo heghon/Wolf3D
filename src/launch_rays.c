@@ -73,7 +73,7 @@ static void	first_while(t_data *data, int j)
 		}
 		x = data->ray.map[X];
 		y = data->ray.map[Y];
-		data->ray.hit = (data->map.map[x][y] != 0 ? 1 : 0);
+		data->ray.hit = (data->map.map[x][y] != 0 && data->map.map[x][y] != 3 ? 1 : 0);
 	}
 }
 
@@ -103,4 +103,9 @@ void		launch_rays(t_data *data)
 		draw_the_ray(data);
 	}
 	mlx_put_image_to_window(data->mlx.ptr, data->mlx.win, data->mlx.img, 0, 0);
+	if (data->player.tp == 1)
+	{
+		data->player.tp = 0;
+		mlx_string_put(data->mlx.ptr, data->mlx.win, WIN_L /2, WIN_H / 2, 0xFFFFFF, "Teleportation !");
+	}
 }
