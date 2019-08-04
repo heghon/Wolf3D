@@ -34,8 +34,8 @@ static void			pixel_put_two(t_data *data, int i, unsigned int c)
 	x = (i * data->mlx.s_line) + (data->ray.nbr * 4);
 	data->mlx.pic[x] = c;
 	data->mlx.pic[x + 1] = (c >> 8);
-	data->mlx.pic[x + 2] = (float)(c >> 16) / (float)(PROJ_PLANE_H / 200 -
-			((float)(i - 600) / 100));
+	data->mlx.pic[x + 2] = (float)(c >> 16) / (float)(PROJ_PLANE_H / (WIN_H / 4) -
+			((float)(i - (WIN_H / 4 * 3)) / (WIN_H / 8)));
 }
 
 static void		pixel_put_tex(t_data *data, int size, int i, unsigned int t)

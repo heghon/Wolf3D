@@ -25,16 +25,20 @@ static void	up_and_down(t_data *data, t_player *player, int key)
 	if (key == ARROW_UP || key == W)
 	{
 		if (data->map.map[(int)(player->pos[X] + x)][(int)(player->pos[Y])] != 1)
-			player->pos[X] += x;
-		if (data->map.map[(int)player->pos[X]][(int)(player->pos[Y] + y)] != 1)
-			player->pos[Y] += y;
+			if (data->map.map[(int)(player->pos[X] + x)][(int)(player->pos[Y])] != 1)
+				player->pos[X] += x;
+		if (data->map.map[(int)(player->pos[X])][(int)(player->pos[Y] + y)] != 1)
+			if (data->map.map[(int)(player->pos[X])][(int)(player->pos[Y] + y)] != 1)
+				player->pos[Y] += y;
 	}
 	if (key == ARROW_DOWN || key == S)
 	{
-		if (data->map.map[(int)(player->pos[X] - x)][(int)player->pos[Y]] != 1)
-			player->pos[X] -= x;
-		if (data->map.map[(int)player->pos[X]][(int)(player->pos[Y] - y)] != 1)
-			player->pos[Y] -= y;
+		if (data->map.map[(int)(player->pos[X] - x)][(int)(player->pos[Y])] != 1)//
+			if (data->map.map[(int)(player->pos[X] - x)][(int)(player->pos[Y])] != 1)
+				player->pos[X] -= x;
+		if (data->map.map[(int)(player->pos[X])][(int)(player->pos[Y] - y)] != 1)
+			if (data->map.map[(int)(player->pos[X])][(int)(player->pos[Y] - y)] != 1)
+				player->pos[Y] -= y;
 	}
 }
 
