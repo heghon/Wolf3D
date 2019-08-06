@@ -74,6 +74,7 @@ static void	init_player(t_player *player)
 	player->move_speed = 0.1;
 	player->rot_speed = 0.05;
 	player->sprint = 1;
+	player->tp = 0;
 }
 
 void		init(t_data *data)

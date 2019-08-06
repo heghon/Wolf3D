@@ -26,7 +26,8 @@ SRCS =	main.c \
 		map_handler.c \
 		drawing_handler.c \
 		launch_rays.c \
-		movements.c
+		movements.c \
+		special_movements.c
 
 
 OBJS = $(SRCS:.c=.o)

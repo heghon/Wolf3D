@@ -24,5 +24,6 @@ int		loop_handler(t_data *data);
 void	drawing_handler(int start, int stop, t_data *data);
 void	pixel_put(t_data *data, int i, unsigned int c);
 void	movements(t_data *data, t_player *player, int key);
+void    teleportation(t_data *data, t_player *player, int **map);
 
 #endif

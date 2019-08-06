@@ -34,6 +34,7 @@ typedef	struct		s_player
 	float			rot_speed;
 	float			move_speed;
 	int				sprint;
+	int				tp;
 }					t_player;
 
 typedef struct		s_mlx

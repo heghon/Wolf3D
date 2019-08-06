@@ -73,7 +73,7 @@ static void	first_while(t_data *data, int j)
 		}
 		x = data->ray.map[X];
 		y = data->ray.map[Y];
-		data->ray.hit = (data->map.map[x][y] != 0 ? 1 : 0);
+		data->ray.hit = (data->map.map[x][y] != 0 && data->map.map[x][y] != 3 ? 1 : 0);
 	}
 }
 

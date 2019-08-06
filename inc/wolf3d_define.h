@@ -57,7 +57,7 @@
 # define MINUS 78
 # define CLR 71
 
-# define WIN_L 1920//1280
+# define WIN_L 1980//1280
 # define WIN_H 1200//800
 # define X 0
 # define Y 1
