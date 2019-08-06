@@ -39,16 +39,27 @@ void			function_problem(int mode)
 
 int				loop_handler(t_data *data)
 {
-	if (data->player.tp == 1 && data->map.map[(int)data->player.pos[X]][(int)data->player.pos[Y]] != 3)
+	int x;
+	int y;
+
+	x = (int)data->player.pos[X];
+	y = (int)data->player.pos[Y];
+	if (data->player.tp == 1 && data->map.map[x][y] != 3)
 		data->player.tp = 0;
 	launch_rays(data);
-	if (data->map.map[(int)data->player.pos[X]][(int)data->player.pos[Y]] == 3 && data->player.tp == 0)
-		mlx_string_put(data->mlx.ptr, data->mlx.win, WIN_L / 2, WIN_H / 2 - 150, 0xFFFFFF, "TELEPORTATION POSSIBLE, PRESS SPACE");
+	if (data->map.map[x][y] == 3 && data->player.tp == 0)
+		mlx_string_put(data->mlx.ptr, data->mlx.win, WIN_L / 2,
+			WIN_H / 2 - 150, 0xFFFFFF, "TELEPORTATION POSSIBLE, PRESS SPACE");
 	return (0);
 }
 
 int				key_handler(int key, t_data *data)
 {
+	int x;
+	int y;
+
+	x = (int)data->player.pos[X];
+	y = (int)data->player.pos[Y];
 	if (key == ESC)
 	{
 		free(data->map.map);
@@ -56,11 +67,12 @@ int				key_handler(int key, t_data *data)
 	}
 	if (key == L_SHIFT)
 		data->player.sprint += (data->player.sprint == 1 ? 1 : -1);
-	if (data->map.map[(int)data->player.pos[X]][(int)data->player.pos[Y]] == 3 && key == SPACE)
+	if (data->map.map[x][y] == 3 && key == SPACE)
 	{
 		teleportation(data, &data->player, data->map.map);
 		loop_handler(data);
-		mlx_string_put(data->mlx.ptr, data->mlx.win, WIN_L / 2, WIN_H / 2 - 50, 0xFFFFFF, "! DONE !");
+		mlx_string_put(data->mlx.ptr, data->mlx.win, WIN_L / 2,
+			WIN_H / 2 - 50, 0xFFFFFF, "! DONE !");
 		return (0);
 	}
 	movements(data, &data->player, key);

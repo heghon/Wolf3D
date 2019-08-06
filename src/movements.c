@@ -34,10 +34,12 @@ static void	up_and_down(t_data *data, t_player *player, int key)
 		y = -y;
 	}
 	if (data->map.map[(int)(player->pos[X] + x)][(int)(player->pos[Y])] != 1)
-		if (data->map.map[(int)(player->pos[X] + x + hbx)][(int)(player->pos[Y] + hby)] != 1)
+		if (data->map.map[(int)(player->pos[X] + x +
+			hbx)][(int)(player->pos[Y] + hby)] != 1)
 			player->pos[X] += x;
 	if (data->map.map[(int)(player->pos[X])][(int)(player->pos[Y] + y)] != 1)
-		if (data->map.map[(int)(player->pos[X] + hbx)][(int)(player->pos[Y] + y + hby)] != 1)
+		if (data->map.map[(int)(player->pos[X] +
+			hbx)][(int)(player->pos[Y] + y + hby)] != 1)
 			player->pos[Y] += y;
 }
 
@@ -89,10 +91,12 @@ static void	draft(t_data *data, t_player *player, int key)
 		y = -y;
 	}
 	if (data->map.map[(int)(player->pos[X] + x)][(int)(player->pos[Y])] != 1)
-		if (data->map.map[(int)(player->pos[X] + x + hbx)][(int)(player->pos[Y] + hby)] != 1)
+		if (data->map.map[(int)(player->pos[X] + x +
+			hbx)][(int)(player->pos[Y] + hby)] != 1)
 			player->pos[X] += x;
 	if (data->map.map[(int)(player->pos[X])][(int)(player->pos[Y] + y)] != 1)
-		if (data->map.map[(int)(player->pos[X] + hbx)][(int)(player->pos[Y] + y + hby)] != 1)
+		if (data->map.map[(int)(player->pos[X] +
+			hbx)][(int)(player->pos[Y] + y + hby)] != 1)
 			player->pos[Y] += y;
 }
 

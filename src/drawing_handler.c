@@ -34,24 +34,22 @@ static void			pixel_put_two(t_data *data, int i, unsigned int c)
 	x = (i * data->mlx.s_line) + (data->ray.nbr * 4);
 	data->mlx.pic[x] = c;
 	data->mlx.pic[x + 1] = (c >> 8);
-	data->mlx.pic[x + 2] = (float)(c >> 16) / (float)(PROJ_PLANE_H / (WIN_H / 4) -
-			((float)(i - (WIN_H / 4 * 3)) / (WIN_H / 8)));
+	data->mlx.pic[x + 2] = (float)(c >> 16) / (float)(PROJ_PLANE_H /
+		(WIN_H / 4) - ((float)(i - (WIN_H / 4 * 3)) / (WIN_H / 8)));
 }
 
-static void		pixel_put_tex(t_data *data, int size, int i, unsigned int t)
+static void			pixel_put_tex(t_data *data, int size, int i, unsigned int t)
 {
 	int d;
 	int	x;
+
 	if (size)
-	;
-	//if (size > WIN_H)
-	//	size = WIN_H;
+		;
 	x = (i * data->mlx.s_line) + (data->ray.nbr * 4);
 	d = i * SIZEX4 - PROJ_PLANE_H * SIZEX2 + data->ray.size * SIZEX2;
 	data->ray.tex[Y] = ((d * TEX_S) / data->ray.size) / SIZEX4;
 	d = data->ray.tex[Y] * TEX_S + data->ray.tex[X];
 	d *= 4;
-	//printf("%d ", data->ray.tex[Y]);
 	data->mlx.pic[x] = data->mlx.texpic[t][d];
 	data->mlx.pic[x + 1] = data->mlx.texpic[t][d + 1];
 	data->mlx.pic[x + 2] = data->mlx.texpic[t][d + 2];

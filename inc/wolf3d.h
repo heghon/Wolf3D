@@ -6,7 +6,7 @@
 /*   By: bmenant <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/27 16:51:41 by bmenant           #+#    #+#             */
-/*   Updated: 2019/08/03 13:58:32 by bmenant          ###   ########.fr       */
+/*   Updated: 2019/08/06 13:40:03 by bmenant          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,6 @@ int		loop_handler(t_data *data);
 void	drawing_handler(int start, int stop, t_data *data);
 void	pixel_put(t_data *data, int i, unsigned int c);
 void	movements(t_data *data, t_player *player, int key);
-void    teleportation(t_data *data, t_player *player, int **map);
+void	teleportation(t_data *data, t_player *player, int **map);
 
 #endif

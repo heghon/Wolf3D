@@ -73,7 +73,8 @@ static void	first_while(t_data *data, int j)
 		}
 		x = data->ray.map[X];
 		y = data->ray.map[Y];
-		data->ray.hit = (data->map.map[x][y] != 0 && data->map.map[x][y] != 3 ? 1 : 0);
+		data->ray.hit = (data->map.map[x][y] != 0
+			&& data->map.map[x][y] != 3 ? 1 : 0);
 	}
 }
 
@@ -85,7 +86,8 @@ static void	value_calc(t_player *player, t_ray *ray)
 		ray->wall_x = player->pos[X] + ray->final_dist * ray->dir[X];
 	ray->wall_x -= (int)ray->wall_x;
 	ray->tex[X] = (int)(ray->wall_x * TEX_S);
-	if ((ray->side_hit == 0 && ray->dir[X] > 0) || (ray->side_hit == 1 && ray->dir[Y] < 0))
+	if ((ray->side_hit == 0 && ray->dir[X] > 0)
+		|| (ray->side_hit == 1 && ray->dir[Y] < 0))
 		ray->tex[X] = TEX_S - ray->tex[X] - 1;
 }
 
