@@ -12,10 +12,6 @@
 
 #include "../inc/wolf3d.h"
 #include "../inc/wolf3d_define.h"
-#include "../libft/libft.h"
-#include <mlx.h>
-
-#include <stdio.h>
 
 void				pixel_put(t_data *data, int i, unsigned int c)
 {

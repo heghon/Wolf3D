@@ -12,7 +12,6 @@
 
 #include "../inc/wolf3d.h"
 #include "../inc/wolf3d_define.h"
-#include "../inc/wolf3d_struct.h"
 #include <math.h>
 
 static void	up_and_down(t_data *data, t_player *player, int key)

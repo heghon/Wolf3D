@@ -12,13 +12,8 @@
 
 #include "../inc/wolf3d.h"
 #include "../inc/wolf3d_define.h"
-#include "../inc/wolf3d_struct.h"
-#include "../libft/libft.h"
-#include <math.h>
 #include <mlx.h>
-
-#include <stdio.h>
-#include <unistd.h>
+#include <math.h>
 
 static void	draw_the_ray(t_data *data)
 {

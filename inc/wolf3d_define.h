@@ -13,32 +13,12 @@
 #ifndef WOLF3D_DEFINE_H
 # define WOLF3D_DEFINE_H
 
-# include <math.h>
-
 # define A 0
-# define B 11
-# define C 8
 # define D 2
 # define E 14
-# define F 3
-# define G 5
-# define H 4
-# define I 34
-# define J 38
-# define K 40
-# define L 37
-# define M 46
-# define N 45
-# define O 31
-# define P 35
 # define Q 12
-# define R 15
 # define S 1
-# define T 17
-# define U 32
-# define V 9
 # define W 13
-# define Z 6
 # define ESC 53
 # define TAB 48
 # define RETURN 36
@@ -72,19 +52,6 @@
 # define SIZEX2 (WALL_H * 2)
 # define SIZEX4 (WALL_H * 4)
 # define HB 0.03
-
-# define ANGLE0 0
-# define ANGLE5 107
-# define ANGLE10 213
-# define ANGLE15 320
-# define ANGLE30 640
-# define ANGLE60 1280
-# define ANGLE90 1920
-# define ANGLE180 3840
-# define ANGLE270 5760
-# define ANGLE360 7680
-
-# define THREAD_NUMBER 10
 
 # define BROWN 0x825C26
 # define DARK_RED 0xAA0000

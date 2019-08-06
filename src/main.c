@@ -13,11 +13,7 @@
 #include "../inc/wolf3d.h"
 #include "../inc/wolf3d_define.h"
 #include "../libft/libft.h"
-#include <stdlib.h>
-#include <time.h>
 #include <mlx.h>
-#include <math.h>
-#include <unistd.h>
 
 static int		close_window(t_data *data)
 {

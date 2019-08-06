@@ -12,10 +12,6 @@
 
 #include "../inc/wolf3d.h"
 #include "../inc/wolf3d_define.h"
-#include "../inc/wolf3d_struct.h"
-#include <stdio.h>
-#include <unistd.h>
-#include <mlx.h>
 
 void	teleportation(t_data *data, t_player *player, int **map)
 {

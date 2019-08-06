@@ -13,9 +13,6 @@
 #ifndef WOLF3D_STRUCT_H
 # define WOLF3D_STRUCT_H
 
-# include <time.h>
-# include <math.h>
-
 typedef struct		s_color
 {
 	unsigned int	first_color;

@@ -12,9 +12,6 @@
 
 #include "../inc/wolf3d.h"
 #include "../inc/wolf3d_define.h"
-#include "../libft/libft.h"
-#include <math.h>
-#include <time.h>
 #include <mlx.h>
 
 static int	init_position(t_map *map, t_player *player)
