@@ -15,10 +15,6 @@
 
 typedef struct		s_color
 {
-	unsigned int	first_color;
-	unsigned int	second_color;
-	unsigned int	third_color;
-	unsigned int	fourth_color;
 	unsigned int	sky_color;
 	unsigned int	ground_color;
 }					t_color;

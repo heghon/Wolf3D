@@ -14,6 +14,7 @@
 # define WOLF3D_H
 
 # include "wolf3d_struct.h"
+# include "wolf3d_define.h"
 
 int		key_handler(int key, t_data *data);
 void	init(t_data *data);
@@ -25,5 +26,6 @@ void	drawing_handler(int start, int stop, t_data *data);
 void	pixel_put(t_data *data, int i, unsigned int c);
 void	movements(t_data *data, t_player *player, int key);
 void	teleportation(t_data *data, t_player *player, int **map);
+void	free_map(int **map, int height);
 
 #endif

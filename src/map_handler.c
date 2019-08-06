@@ -14,8 +14,16 @@
 #include <unistd.h>
 #include <fcntl.h>
 #include "../libft/libft.h"
-#include <stdlib.h>
-#include <stdio.h>
+
+void		free_map(int **map, int height)
+{
+	int i;
+
+	i = -1;
+	while (++i < height)
+		free(map[i]);
+	free(map);
+}
 
 static void	map_check(int **map, int width, int height)
 {
@@ -26,7 +34,7 @@ static void	map_check(int **map, int width, int height)
 	{
 		if (map[i][0] != 1 || map[i][width - 1] != 1)
 		{
-			free(map);
+			free_map(map, height);
 			function_problem(2);
 		}
 	}
@@ -35,7 +43,7 @@ static void	map_check(int **map, int width, int height)
 	{
 		if (map[0][i] != 1 || map[height - 1][i] != 1)
 		{
-			free(map);
+			free_map(map, height);
 			function_problem(2);
 		}
 	}
@@ -52,7 +60,7 @@ static int	fill_map(t_map *map, char *line)
 		if (!(line[j] == 'W' || line[j] == ' '
 			|| line[j] == 'S' || line[j] == 'T'))
 		{
-			free(map->map);
+			free_map(map->map, map->height);
 			function_problem(2);
 		}
 		map->map[i][j] = (line[j] == 'W' ? 1 : 0);
@@ -74,11 +82,19 @@ void		map_handler(t_map *map, char *str)
 	while (get_next_line(fd, &line) == 1 && ++map->height)
 	{
 		if (map->height > 1 && map->width != (int)ft_strlen(line))
+		{
+			free(line);
 			function_problem(2);
+		}
 		map->width = ft_strlen(line);
 		free(line);
 	}
 	close(fd);
+	if (map->height == 0)
+	{
+		free(line);
+		function_problem(2);
+	}
 	map->map = ft_double_tab_int(map->height, map->width);
 	if ((fd = open(str, O_RDONLY)) == -1)
 		function_problem(1);

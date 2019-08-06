@@ -11,8 +11,8 @@
 /* ************************************************************************** */
 
 #include "../inc/wolf3d.h"
-#include "../inc/wolf3d_define.h"
 #include <mlx.h>
+#include <stdlib.h>
 
 static int	init_position(t_map *map, t_player *player)
 {
@@ -33,6 +33,7 @@ static int	init_position(t_map *map, t_player *player)
 			}
 		}
 	}
+	free_map(map->map, map->height);
 	function_problem(2);
 	return (0);
 }
@@ -67,7 +68,7 @@ static void	init_player(t_player *player)
 	player->dir[X] = 1.0;
 	player->dir[Y] = 0.0;
 	player->plane[X] = 0;
-	player->plane[Y] = 0.66;
+	player->plane[Y] = (FOV / 100.0);
 	player->move_speed = 0.1;
 	player->rot_speed = 0.05;
 	player->sprint = 1;
@@ -79,10 +80,6 @@ void		init(t_data *data)
 	init_player(&data->player);
 	init_position(&data->map, &data->player);
 	init_mlx(&data->mlx);
-	data->color.first_color = DARK_RED;
-	data->color.second_color = RED;
-	data->color.third_color = ORANGE;
-	data->color.fourth_color = YELLOW;
-	data->color.sky_color = 0x0088FF;
-	data->color.ground_color = 0xFF0000;
+	data->color.sky_color = BLUE_CYAN;
+	data->color.ground_color = RED;
 }

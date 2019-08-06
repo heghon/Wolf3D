@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "../inc/wolf3d.h"
-#include "../inc/wolf3d_define.h"
 
 void				pixel_put(t_data *data, int i, unsigned int c)
 {
@@ -34,13 +33,11 @@ static void			pixel_put_two(t_data *data, int i, unsigned int c)
 		(WIN_H / 4) - ((float)(i - (WIN_H / 4 * 3)) / (WIN_H / 8)));
 }
 
-static void			pixel_put_tex(t_data *data, int size, int i, unsigned int t)
+static void			pixel_put_tex(t_data *data, int i, unsigned int t)
 {
 	int d;
 	int	x;
 
-	if (size)
-		;
 	x = (i * data->mlx.s_line) + (data->ray.nbr * 4);
 	d = i * SIZEX4 - PROJ_PLANE_H * SIZEX2 + data->ray.size * SIZEX2;
 	data->ray.tex[Y] = ((d * TEX_S) / data->ray.size) / SIZEX4;
@@ -73,7 +70,7 @@ void				drawing_handler(int start, int stop, t_data *data)
 		pixel_put(data, i, data->color.sky_color / (float)(i + 150));
 	i -= 1;
 	while (++i <= stop && i < PROJ_PLANE_H)
-		pixel_put_tex(data, stop - start, i, choose_tex(&data->ray));
+		pixel_put_tex(data, i, choose_tex(&data->ray));
 	i -= 1;
 	while (++i < PROJ_PLANE_H)
 		pixel_put_two(data, i, data->color.ground_color);

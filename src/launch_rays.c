@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "../inc/wolf3d.h"
-#include "../inc/wolf3d_define.h"
 #include <mlx.h>
 #include <math.h>
 
@@ -22,29 +21,27 @@ static void	draw_the_ray(t_data *data)
 
 	start = PROJ_PLANE_H / 2 - data->ray.size / 2;
 	start = (start < 0 ? 0 : start);
-	stop = data->ray.size / 2 + PROJ_PLANE_H / 2;
+	stop = data->ray.size / 2 + PROJ_PLANE_H / 2 - 1;
 	stop = (stop >= PROJ_PLANE_H ? PROJ_PLANE_H - 1 : stop);
 	drawing_handler(start, stop, data);
 }
 
-static void	init_ray(t_ray *ray, t_player *player)
+static void	init_ray(t_ray *ray, t_player *p)
 {
 	ray->camx = 2 * ray->nbr / (float)WIN_L - 1;
-	ray->dir[X] = player->dir[X] + player->plane[X] * ray->camx;
-	ray->dir[Y] = player->dir[Y] + player->plane[Y] * ray->camx;
-	ray->map[X] = (int)player->pos[X];
-	ray->map[Y] = (int)player->pos[Y];
+	ray->dir[X] = p->dir[X] + p->plane[X] * ray->camx;
+	ray->dir[Y] = p->dir[Y] + p->plane[Y] * ray->camx;
+	ray->map[X] = (int)p->pos[X];
+	ray->map[Y] = (int)p->pos[Y];
 	ray->delta[X] = fabs(1 / ray->dir[X]);
 	ray->delta[Y] = fabs(1 / ray->dir[Y]);
 	ray->hit = 0;
 	ray->step[X] = (ray->dir[X] < 0 ? -1 : 1);
 	ray->step[Y] = (ray->dir[Y] < 0 ? -1 : 1);
-	ray->first_dist[X] = (ray->dir[X] < 0 ? (player->pos[X] - ray->map[X]) *
-			ray->delta[X] : (ray->map[X] + 1.0 - player->pos[X]) *
-			ray->delta[X]);
-	ray->first_dist[Y] = (ray->dir[Y] < 0 ? (player->pos[Y] - ray->map[Y]) *
-			ray->delta[Y] : (ray->map[Y] + 1.0 - player->pos[Y]) *
-			ray->delta[Y]);
+	ray->first_dist[X] = (ray->dir[X] < 0 ? (p->pos[X] - ray->map[X])
+		* ray->delta[X] : (ray->map[X] + 1.0 - p->pos[X]) * ray->delta[X]);
+	ray->first_dist[Y] = (ray->dir[Y] < 0 ? (p->pos[Y] - ray->map[Y])
+		* ray->delta[Y] : (ray->map[Y] + 1.0 - p->pos[Y]) * ray->delta[Y]);
 }
 
 static void	first_while(t_data *data, int j)
@@ -100,14 +97,12 @@ void		launch_rays(t_data *data)
 		first_while(data, j);
 		if (data->ray.side_hit == 0)
 		{
-			data->ray.final_dist = (float)(data->ray.map[X] -
-					data->player.pos[X] + (1 - data->ray.step[X]) / 2) /
-				data->ray.dir[X];
+			data->ray.final_dist = (data->ray.map[X] - data->player.pos[X]
+				+ (1 - data->ray.step[X]) / 2) / data->ray.dir[X];
 		}
 		else
-			data->ray.final_dist = (float)(data->ray.map[Y] -
-					data->player.pos[Y] + (1 - data->ray.step[Y]) / 2) /
-				data->ray.dir[Y];
+			data->ray.final_dist = (data->ray.map[Y] - data->player.pos[Y]
+				+ (1 - data->ray.step[Y]) / 2) / data->ray.dir[Y];
 		data->ray.size = (int)(PROJ_PLANE_H / data->ray.final_dist);
 		value_calc(&data->player, &data->ray);
 		draw_the_ray(data);

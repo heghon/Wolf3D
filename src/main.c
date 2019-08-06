@@ -11,14 +11,15 @@
 /* ************************************************************************** */
 
 #include "../inc/wolf3d.h"
-#include "../inc/wolf3d_define.h"
 #include "../libft/libft.h"
 #include <mlx.h>
 
+#include <stdlib.h>
 static int		close_window(t_data *data)
 {
-	free(data->map.map);
-	exit(0);
+	system("leaks wolf3d");
+	free_map(data->map.map, data->map.height);
+	exit(EXIT_SUCCESS);
 	return (0);
 }
 
@@ -27,10 +28,11 @@ void			function_problem(int mode)
 	if (mode == 0)
 		ft_putendl("Usage : ./wolf3d <map_name>");
 	else if (mode == 1)
-		ft_putendl("An issue occured, please try again");
+		ft_putendl("An issue occured while opening the file");
 	else if (mode == 2)
-		ft_putendl("Your map is wrong");
-	exit(0);
+		ft_putendl("Your map should be a closed and not filled rectangle");
+	system("leaks wolf3d");
+	exit(EXIT_FAILURE);
 }
 
 int				loop_handler(t_data *data)
@@ -44,8 +46,8 @@ int				loop_handler(t_data *data)
 		data->player.tp = 0;
 	launch_rays(data);
 	if (data->map.map[x][y] == 3 && data->player.tp == 0)
-		mlx_string_put(data->mlx.ptr, data->mlx.win, WIN_L / 2,
-			WIN_H / 2 - 150, 0xFFFFFF, "TELEPORTATION POSSIBLE, PRESS SPACE");
+		mlx_string_put(data->mlx.ptr, data->mlx.win, WIN_L / 2 - 175,
+			WIN_H / 2, 0xFFFFFF, "TELEPORTATION POSSIBLE - PRESS SPACE");
 	return (0);
 }
 
@@ -57,18 +59,15 @@ int				key_handler(int key, t_data *data)
 	x = (int)data->player.pos[X];
 	y = (int)data->player.pos[Y];
 	if (key == ESC)
-	{
-		free(data->map.map);
-		exit(0);
-	}
+		close_window(data);
 	if (key == L_SHIFT)
 		data->player.sprint += (data->player.sprint == 1 ? 1 : -1);
 	if (data->map.map[x][y] == 3 && key == SPACE)
 	{
 		teleportation(data, &data->player, data->map.map);
 		loop_handler(data);
-		mlx_string_put(data->mlx.ptr, data->mlx.win, WIN_L / 2,
-			WIN_H / 2 - 50, 0xFFFFFF, "! DONE !");
+		mlx_string_put(data->mlx.ptr, data->mlx.win, WIN_L / 2 - 50,
+			WIN_H / 2, 0xFFFFFF, "MAGIC !");
 		return (0);
 	}
 	movements(data, &data->player, key);
