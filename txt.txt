@@ -1,6 +1,5 @@
-exe en dehors du rep logique ||||||||| double protection, first line main et protec fc mlx dan init_mlx
-
-lien symbolique text ||||||||| fonctionne deja avec les deux protections misent en placent
+OK|exe en dehors du rep logique ||||||||| double protection, first line main et protec fc mlx dan init_mlx
+OK|lien symbolique text ||||||||| fonctionne deja avec les deux protections misent en placent
 
 dernier free(line) dans map_handler
 
@@ -12,7 +11,7 @@ void *malloc(size_t n)
     if (i % 2 == 0)
         return (NULL);
     else
-        return (valloc(n))
+        return (valloc(n));
 }
 
 while 1 avant le exit
@@ -20,6 +19,8 @@ while 1 avant le exit
 mlx_destroy_image
 
 pas de recompilation lors de la modification d'includes
+
+FLAG D'OPTI
 
 static void	init_mlx(t_mlx *mlx)
 {

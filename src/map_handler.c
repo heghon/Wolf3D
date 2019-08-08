@@ -80,10 +80,10 @@ void		map_handler(t_map *map, char *str)
 		function_problem(1);
 	while (get_next_line(fd, &line) == 1 && ++map->height)
 	{
-		if (map->height > 1 && map->width != (int)ft_strlen(line))
+		if (!line || (map->height > 1 && map->width != (int)ft_strlen(line)))
 		{
 			free(line);
-			function_problem(2);
+			function_problem(!line ? 1 : 2);
 		}
 		map->width = ft_strlen(line);
 		free(line);
