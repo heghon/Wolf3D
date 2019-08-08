@@ -13,7 +13,9 @@
 #ifndef LIBFT_H
 # define LIBFT_H
 
-#include <stdlib.h>
+# include <stdlib.h>
+# include <limits.h>
+# include <unistd.h>
 
 # define BUFF_SIZE 10
 

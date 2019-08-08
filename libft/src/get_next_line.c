@@ -3,87 +3,72 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bmenant <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: sseneca <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/12/06 14:43:22 by bmenant           #+#    #+#             */
-/*   Updated: 2019/06/20 16:35:39 by bmenant          ###   ########.fr       */
+/*   Created: 2019/02/10 14:22:59 by sseneca           #+#    #+#             */
+/*   Updated: 2019/04/03 14:24:13 by sseneca          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <string.h>
-#include <unistd.h>
 #include "../libft.h"
 
-static char	*reading(char **str, char *buff, int fd)
+static int			ft_check(char **stat, char **line)
 {
-	int		ret;
+	char			*tmp;
 
-	if (read(fd, buff, 0) < 0)
-		return (NULL);
-	ret = 1;
-	while (ret && (!(ft_strchri(*str, '\n') != -1)))
+	tmp = ft_strchr(*stat, '\n');
+	if (tmp)
 	{
-		ret = read(fd, buff, BUFF_SIZE);
-		if (ret)
-		{
-			buff[ret] = '\0';
-			if (!(*str))
-				*str = ft_strsub(buff, 0, ret);
-			else
-				*str = ft_strjoinfree(*str, buff, 1);
-			if (!(*str))
-				return (NULL);
-		}
-	}
-	free(buff);
-	return (*str);
-}
-
-static char	*stocking(char **str)
-{
-	unsigned int	cut;
-	size_t			len;
-	char			*line;
-
-	cut = ft_strchri(*str, '\n');
-	len = ft_strlen(*str);
-	if (ft_strchri(*str, '\n') != -1)
-	{
-		if (!(line = ft_strsub(*str, 0, cut)))
-			return (NULL);
-		if (!(*str = ft_strsubfree(*str, (cut + 1), (len - (cut + 1)))))
-			return (NULL);
-	}
-	else
-	{
-		if (!(line = ft_strdup(*str)))
-			return (NULL);
-		ft_strdel(str);
-	}
-	return (line);
-}
-
-int			get_next_line(const int fd, char **line)
-{
-	char		*buff;
-	static char	*str[7168];
-
-	if (fd < 0 || fd > 7168 || line == NULL || BUFF_SIZE < 1)
-		return (-1);
-	if (!(buff = ft_strnew(BUFF_SIZE)))
-		return (-1);
-	if (str[fd] == NULL)
-	{
-		if (!(str[fd] = ft_strnew(0)))
-			return (-1);
-	}
-	if (!(reading(&str[fd], buff, fd)))
-		return (-1);
-	if (*str[fd])
-	{
-		if (!(*line = stocking(&str[fd])))
-			return (-1);
+		*line = ft_strsub(*stat, 0, tmp - *stat);
+		ft_memmove(*stat, tmp + 1, ft_strlen(tmp));
+		tmp = NULL;
 		return (1);
 	}
 	return (0);
+}
+
+static	int			ft_read(int fd, char **stat, char **line)
+{
+	char			buff[BUFF_SIZE + 1];
+	int				ret;
+	char			*tmp;
+
+	while ((ret = read(fd, buff, BUFF_SIZE)))
+	{
+		if (ret == -1)
+			return (-1);
+		buff[ret] = '\0';
+		tmp = NULL;
+		if (*stat)
+		{
+			tmp = ft_strdup(*stat);
+			ft_memdel((void **)stat);
+			*stat = ft_strjoin(tmp, buff);
+			ft_memdel((void **)&tmp);
+		}
+		else
+			*stat = ft_strdup(buff);
+		if (ft_check(stat, line))
+			return (1);
+	}
+	return (0);
+}
+
+int					get_next_line(const int fd, char **line)
+{
+	static	char	*stat[OPEN_MAX];
+	int				read;
+
+	if (!line || 0 > fd || fd >= OPEN_MAX)
+		return (-1);
+	if (stat[fd] && ft_check(&stat[fd], line))
+		return (1);
+	read = ft_read(fd, &stat[fd], line);
+	if (read != 0)
+		return (read);
+	if (stat[fd] == NULL || stat[fd][0] == '\0')
+		return (0);
+	*line = stat[fd];
+	stat[fd] = NULL;
+	return (1);
 }

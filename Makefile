@@ -6,7 +6,7 @@
 #    By: bmenant <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/05/13 13:10:40 by bmenant           #+#    #+#              #
-#    Updated: 2019/07/25 13:54:09 by bmenant          ###   ########.fr        #
+#    Updated: 2019/08/04 13:24:59 by sseneca          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,9 @@ SRCS =	main.c \
 		init.c \
 		map_handler.c \
 		drawing_handler.c \
-		launch_rays.c
+		launch_rays.c \
+		movements.c \
+		special_movements.c
 
 
 OBJS = $(SRCS:.c=.o)
@@ -34,7 +36,7 @@ SRC = $(addprefix $(SRC_FILE),$(SRCS))
 OBJ = $(addprefix $(OBJ_FILE),$(OBJS))
 
 FLAGS = -lmlx -framework OpenGL -framework AppKit
-CFLAGS =# -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror
 IFLAGS = -I ./inc/
 LFLAGS = ./libft/libft.a
 
@@ -46,8 +48,8 @@ all : $(NAME)
 
 $(NAME) : $(OBJ)
 	@ make -C./libft/
-	@ $(CC) $(LFLAGS) $(OBJ) -o $@ $(FLAGS) -fsanitize=address
-	@echo "$(BLUE)-$(NAME)	$(OK)"
+	@ $(CC) $(LFLAGS) $(OBJ) -o $@ $(FLAGS)
+	@echo "$(BLUE)-$(NAME)		$(OK)"
 
 $(OBJ_FILE)%.o : $(SRC_FILE)%.c
 	@ mkdir $(OBJ_FILE) 2> /dev/null || true
@@ -70,7 +72,7 @@ push:
 	@git add -A
 	@git commit -m "make push"
 	@echo "\n$(BLUE)-COMMIT	$(OK)"
-	@git push origin sseneca
+	@git push origin master
 	@echo "\n$(BLUE)-PUSH	$(OK)"
 
 test : re

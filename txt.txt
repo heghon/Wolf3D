@@ -1,0 +1,51 @@
+exe en dehors du rep logique ||||||||| double protection, first line main et protec fc mlx dan init_mlx
+
+lien symbolique text ||||||||| fonctionne deja avec les deux protections misent en placent
+
+dernier free(line) dans map_handler
+
+void *malloc(size_t n)
+{
+    static int i;
+
+    i++;
+    if (i % 2 == 0)
+        return (NULL);
+    else
+        return (valloc(n))
+}
+
+while 1 avant le exit
+
+mlx_destroy_image
+
+pas de recompilation lors de la modification d'includes
+
+static void	init_mlx(t_mlx *mlx)
+{
+	int i;
+
+	i = 0;
+	mlx->ptr = mlx_init();
+	mlx->bpp = 0;
+	mlx->s_line = 0;
+	if ((mlx->tex[0] = mlx_xpm_file_to_image(mlx->ptr, FILE1, &i, &i)) == NULL)
+		function_problem(1);
+	mlx->texpic[0] = mlx_get_data_addr(mlx->tex[0], &(mlx->bpp), &(mlx->s_line),
+			&(mlx->endian));
+	if ((mlx->tex[1] = mlx_xpm_file_to_image(mlx->ptr, FILE2, &i, &i)) == NULL)
+		function_problem(1);
+	mlx->texpic[1] = mlx_get_data_addr(mlx->tex[1], &(mlx->bpp), &(mlx->s_line),
+			&(mlx->endian));
+	if ((mlx->tex[2] = mlx_xpm_file_to_image(mlx->ptr, FILE3, &i, &i)) == NULL)
+		function_problem(1);
+	mlx->texpic[2] = mlx_get_data_addr(mlx->tex[2], &(mlx->bpp), &(mlx->s_line),
+			&(mlx->endian));
+	if ((mlx->tex[3] = mlx_xpm_file_to_image(mlx->ptr, FILE4, &i, &i)) == NULL)
+		function_problem(1);
+	mlx->texpic[3] = mlx_get_data_addr(mlx->tex[3], &(mlx->bpp), &(mlx->s_line),
+			&(mlx->endian));
+	mlx->img = mlx_new_image(mlx->ptr, PROJ_PLANE_L, PROJ_PLANE_H);
+	mlx->pic = mlx_get_data_addr(mlx->img, &(mlx->bpp), &(mlx->s_line),
+			&(mlx->endian));
+}
