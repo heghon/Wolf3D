@@ -1,26 +1,21 @@
 OK|exe en dehors du rep logique ||||||||| double protection, first line main et protec fc mlx dan init_mlx
 OK|lien symbolique text ||||||||| fonctionne deja avec les deux protections misent en placent
+OK|BUFF SIZE 4096
+
+proteger les malloc de gnl (join, dup etc)
 
 dernier free(line) dans map_handler
 
-void *malloc(size_t n)
-{
-    static int i;
-
-    i++;
-    if (i % 2 == 0)
-        return (NULL);
-    else
-        return (valloc(n));
-}
-
-while 1 avant le exit
-
-mlx_destroy_image
-
 pas de recompilation lors de la modification d'includes
 
-FLAG D'OPTI
+verif MAX_S
+
+changer txt de la gestion d'erreur
+
+|verif ligne pas trop grande
+|FLAG D'OPTI
+K|while 1 avant le exit
+|mlx_destroy_image
 
 static void	init_mlx(t_mlx *mlx)
 {
@@ -50,3 +45,14 @@ static void	init_mlx(t_mlx *mlx)
 	mlx->pic = mlx_get_data_addr(mlx->img, &(mlx->bpp), &(mlx->s_line),
 			&(mlx->endian));
 }
+
+void *malloc(size_t n)
+{
+    static int i;
+
+    i++;
+    if (i % 2 == 0)
+        return (NULL);
+    else
+        return (valloc(n));
+}//faire une modif en ajoutant un int (aui s'incremente quand il devrait renvoyer NULL) pour secur les malloc concernes par le code

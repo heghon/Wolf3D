@@ -35,11 +35,11 @@
 # define FOV 66
 # define PROJ_PLANE_L WIN_L
 # define PROJ_PLANE_H WIN_H
-# define PLANE_DIST ((WIN_L / 2) * tan((FOV / 2)* 0.017453292519943))
 # define WALL_H 256
 # define SIZEX2 (WALL_H * 2)
 # define SIZEX4 (WALL_H * 4)
 # define HB 0.03
+# define MAX_S (WIN_H / 2)
 
 # define BROWN 0x825C26
 # define DARK_RED 0xAA0000
@@ -56,6 +56,7 @@
 # define FILE2 "pics/purplestone.xpm"
 # define FILE3 "pics/eagle.xpm"
 # define FILE4 "pics/wood.xpm"
+# define FILE5 "pics/stone.xpm"
 # define TEX_S 64
-# define SKY_S 894
+# define TEX_L (TEX_S * TEX_S * 4 - 4)
 #endif

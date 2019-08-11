@@ -89,7 +89,7 @@ void		map_handler(t_map *map, char *str)
 		free(line);
 	}
 	close(fd);
-	if (map->height == 0)
+	if (map->height == 0 || map->height > MAX_S || map->width > MAX_S)
 		function_problem(2);
 	map->map = ft_double_tab_int(map->height, map->width);
 	if ((fd = open(str, O_RDONLY)) == -1)

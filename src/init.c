@@ -38,14 +38,20 @@ static int	init_position(t_map *map, t_player *player)
 	return (0);
 }
 
-static void	init_mlx(t_mlx *mlx)
+static void	init_img(t_mlx *mlx)
+{
+	mlx->bpp = 0;
+	mlx->s_line = 0;
+	mlx->img = mlx_new_image(mlx->ptr, PROJ_PLANE_L, PROJ_PLANE_H);
+	mlx->pic = mlx_get_data_addr(mlx->img, &(mlx->bpp), &(mlx->s_line),
+			&(mlx->endian));
+}
+
+static void	init_tex(t_mlx *mlx)
 {
 	int i;
 
 	i = 0;
-	mlx->ptr = mlx_init();
-	mlx->bpp = 0;
-	mlx->s_line = 0;
 	if ((mlx->tex[0] = mlx_xpm_file_to_image(mlx->ptr, FILE1, &i, &i)) == NULL)
 		function_problem(3);
 	mlx->texpic[0] = mlx_get_data_addr(mlx->tex[0], &(mlx->bpp), &(mlx->s_line),
@@ -62,8 +68,9 @@ static void	init_mlx(t_mlx *mlx)
 		function_problem(3);
 	mlx->texpic[3] = mlx_get_data_addr(mlx->tex[3], &(mlx->bpp), &(mlx->s_line),
 			&(mlx->endian));
-	mlx->img = mlx_new_image(mlx->ptr, PROJ_PLANE_L, PROJ_PLANE_H);
-	mlx->pic = mlx_get_data_addr(mlx->img, &(mlx->bpp), &(mlx->s_line),
+	if ((mlx->tex[4] = mlx_xpm_file_to_image(mlx->ptr, FILE5, &i, &i)) == NULL)
+		function_problem(4);
+	mlx->texpic[4] = mlx_get_data_addr(mlx->tex[4], &(mlx->bpp), &(mlx->s_line),
 			&(mlx->endian));
 }
 
@@ -83,7 +90,9 @@ void		init(t_data *data)
 {
 	init_player(&data->player);
 	init_position(&data->map, &data->player);
-	init_mlx(&data->mlx);
+	data->mlx.ptr = mlx_init();
+	init_tex(&data->mlx);
+	init_img(&data->mlx);
 	data->color.sky_color = BLUE_CYAN;
 	data->color.ground_color = RED;
 }

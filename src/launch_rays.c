@@ -21,7 +21,7 @@ static void	draw_the_ray(t_data *data)
 
 	start = PROJ_PLANE_H / 2 - data->ray.size / 2;
 	start = (start < 0 ? 0 : start);
-	stop = data->ray.size / 2 + PROJ_PLANE_H / 2 - 1;
+	stop = data->ray.size / 2 + PROJ_PLANE_H / 2;
 	stop = (stop >= PROJ_PLANE_H ? PROJ_PLANE_H - 1 : stop);
 	drawing_handler(start, stop, data);
 }

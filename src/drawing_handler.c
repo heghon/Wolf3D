@@ -21,19 +21,8 @@ void				pixel_put(t_data *data, int i, unsigned int c)
 	data->mlx.pic[x + 1] = (c >> 8);
 	data->mlx.pic[x + 2] = (c >> 16);
 }
-/*
-static void			pixel_put_two(t_data *data, int i, unsigned int c)
-{
-	int		x;
 
-	x = (i * data->mlx.s_line) + (data->ray.nbr * 4);
-	data->mlx.pic[x] = c;
-	data->mlx.pic[x + 1] = (c >> 8);
-	data->mlx.pic[x + 2] = (float)(c >> 16) / (float)(PROJ_PLANE_H /
-		(WIN_H / 4) - ((float)(i - (WIN_H / 4 * 3)) / (WIN_H / 8)));
-}
-*/
-static void			pixel_put_tex(t_data *data, int i, unsigned int t)
+static void			pixel_put_tex(t_data *data, int i, int side)
 {
 	int d;
 	int	x;
@@ -43,9 +32,11 @@ static void			pixel_put_tex(t_data *data, int i, unsigned int t)
 	data->ray.tex[Y] = ((d * TEX_S) / data->ray.size) / SIZEX4;
 	d = data->ray.tex[Y] * TEX_S + data->ray.tex[X];
 	d *= 4;
-	data->mlx.pic[x] = data->mlx.texpic[t][d];
-	data->mlx.pic[x + 1] = data->mlx.texpic[t][d + 1];
-	data->mlx.pic[x + 2] = data->mlx.texpic[t][d + 2];
+	if (d > TEX_L)
+		d = TEX_L;
+	data->mlx.pic[x] = data->mlx.texpic[side][d];
+	data->mlx.pic[x + 1] = data->mlx.texpic[side][d + 1];
+	data->mlx.pic[x + 2] = data->mlx.texpic[side][d + 2];
 }
 
 static unsigned int	choose_tex(t_ray *ray)
@@ -61,61 +52,45 @@ static unsigned int	choose_tex(t_ray *ray)
 	return (0);
 }
 
-static void			pixel_put_floor(t_data *data, int i, unsigned int side)
+static void			pixel_put_floor(t_data *data, int i, int side, float fdist)
 {
 	float	floor[2];
 	int		floort[2];
-	int	x;
-	int d;
+	float	w;
+	int		x;
+	int		d;
 
 	x = (i * data->mlx.s_line) + (data->ray.nbr * 4);
-    if(side == 0)//do one time for each line instead of every pixel ?
-    {
-		floor[X] = data->ray.map[X];
-    	floor[Y] = data->ray.map[Y] + data->ray.wall_x;
-    }
-    else if(side == 1)
-    {
-        floor[X] = data->ray.map[X] + 1.0;
-        floor[Y] = data->ray.map[Y] + data->ray.wall_x;
-    }
-    else if(side == 2)
-    {
-        floor[X] = data->ray.map[X] + data->ray.wall_x;
-        floor[Y] = data->ray.map[Y];
-    }
-    else
-    {
-    	floor[X] = data->ray.map[X] + data->ray.wall_x;
-        floor[Y] = data->ray.map[Y] + 1.0;
-    }
-//perpWallDist == data->ray.final_dist
-	float currentdist;
-	float w;
-
-	currentdist = PROJ_PLANE_H / (2.0 * i - PROJ_PLANE_H);
-	w = (currentdist - 0.0) / (data->ray.final_dist - 0.0);
-	floort[X] = (int)((w * floor[X] + (1.0 - w) * data->player.pos[X]) * TEX_S) % TEX_S;// * then % ?//yeah probably
-	floort[Y] = (int)((w * floor[Y] + (1.0 - w) * data->player.pos[Y]) * TEX_S) % TEX_S;
+	floor[X] = data->ray.map[X];
+	floor[Y] = data->ray.map[Y];
+	floor[X] += side > 1 ? data->ray.wall_x : 0;
+	floor[X] += side == 1 ? 1 : 0;
+	floor[Y] += side < 2 ? data->ray.wall_x : 0;
+	floor[Y] += side == 3 ? 1 : 0;
+	w = fdist / data->ray.final_dist;
+	floort[X] = (int)((w * floor[X] + (1.0 - w) * data->player.pos[X])
+		* TEX_S) % TEX_S;
+	floort[Y] = (int)((w * floor[Y] + (1.0 - w) * data->player.pos[Y])
+		* TEX_S) % TEX_S;
 	d = (floort[Y] * TEX_S + floort[X]) * 4;
-	data->mlx.pic[x] = data->mlx.texpic[3][d];
-	data->mlx.pic[x + 1] = data->mlx.texpic[3][d + 1];
-	data->mlx.pic[x + 2] = data->mlx.texpic[3][d + 2];
+	data->mlx.pic[x] = data->mlx.texpic[4][d];
+	data->mlx.pic[x + 1] = data->mlx.texpic[4][d + 1];
+	data->mlx.pic[x + 2] = data->mlx.texpic[4][d + 2];
 }
 
 void				drawing_handler(int start, int stop, t_data *data)
 {
 	int		i;
-	//int t = choose_tex(), so we don't make the same calcul for every pixel
+	int		side;
 
+	side = choose_tex(&data->ray);
 	i = -1;
 	while (++i < start)
 		pixel_put(data, i, data->color.sky_color / (float)(i + 150));
 	i -= 1;
 	while (++i <= stop && i < PROJ_PLANE_H)
-		pixel_put_tex(data, i, choose_tex(&data->ray));
+		pixel_put_tex(data, i, side);
 	i -= 1;
 	while (++i < PROJ_PLANE_H)
-		pixel_put_floor(data, i, choose_tex(&data->ray));
-		//	pixel_put_two(data, i, data->color.ground_color);
+		pixel_put_floor(data, i, side, PROJ_PLANE_H / (2.0 * i - PROJ_PLANE_H));
 }

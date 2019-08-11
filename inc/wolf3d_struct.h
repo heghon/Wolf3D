@@ -36,8 +36,8 @@ typedef struct		s_mlx
 	void			*win;
 	void			*img;
 	char			*pic;
-	void			*tex[4];
-	char			*texpic[4];
+	void			*tex[5];
+	char			*texpic[5];
 	int				bpp;
 	int				s_line;
 	int				endian;
