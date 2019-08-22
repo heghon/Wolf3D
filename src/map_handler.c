@@ -71,14 +71,32 @@ static int	fill_map(t_map *map, char *line)
 	return (1);
 }
 
+static void	map_handler2(t_map *map, char *str)
+{
+	int		fd;
+	char	*line;
+	int		test;
+
+	map->map = ft_double_tab_int(map->height, map->width);
+	if ((fd = open(str, O_RDONLY)) == -1)
+		function_problem(1);
+	while ((test = get_next_line(fd, &line)) == 1 && fill_map(map, line))
+		free(line);
+	if (test == -1)
+		function_problem(2);
+	close(fd);
+	map_check(map->map, map->width, map->height);
+}
+
 void		map_handler(t_map *map, char *str)
 {
-	int			fd;
-	char		*line;
+	int		fd;
+	char	*line;
+	int		test;
 
 	if ((fd = open(str, O_RDONLY)) == -1)
 		function_problem(1);
-	while (get_next_line(fd, &line) == 1 && ++map->height)
+	while ((test = get_next_line(fd, &line)) == 1 && ++map->height)
 	{
 		if (!line || (map->height > 1 && map->width != (int)ft_strlen(line)))
 		{
@@ -88,14 +106,9 @@ void		map_handler(t_map *map, char *str)
 		map->width = ft_strlen(line);
 		free(line);
 	}
-	close(fd);
-	if (map->height == 0 || map->height > MAX_S || map->width > MAX_S)
+	if (map->height == 0 || map->height > MAX_S || map->width > MAX_S
+		|| test == -1)
 		function_problem(2);
-	map->map = ft_double_tab_int(map->height, map->width);
-	if ((fd = open(str, O_RDONLY)) == -1)
-		function_problem(1);
-	while (get_next_line(fd, &line) == 1 && fill_map(map, line))
-		free(line);
 	close(fd);
-	map_check(map->map, map->width, map->height);
+	map_handler2(map, str);
 }

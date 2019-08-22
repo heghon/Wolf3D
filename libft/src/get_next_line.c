@@ -19,7 +19,8 @@ static int			ft_check(char **stat, char **line)
 	tmp = ft_strchr(*stat, '\n');
 	if (tmp)
 	{
-		*line = ft_strsub(*stat, 0, tmp - *stat);
+		if ((*line = ft_strsub(*stat, 0, tmp - *stat)) == 0)
+			return (-1);
 		ft_memmove(*stat, tmp + 1, ft_strlen(tmp));
 		tmp = NULL;
 		return (1);
@@ -41,13 +42,15 @@ static	int			ft_read(int fd, char **stat, char **line)
 		tmp = NULL;
 		if (*stat)
 		{
-			tmp = ft_strdup(*stat);
+			if ((tmp = ft_strdup(*stat)) == 0)
+				return (-1);
 			ft_memdel((void **)stat);
-			*stat = ft_strjoin(tmp, buff);
+			if ((*stat = ft_strjoin(tmp, buff)) == 0)
+				return (-1);
 			ft_memdel((void **)&tmp);
 		}
-		else
-			*stat = ft_strdup(buff);
+		else if ((*stat = ft_strdup(buff)) == 0)
+			return (-1);
 		if (ft_check(stat, line))
 			return (1);
 	}

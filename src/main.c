@@ -14,21 +14,6 @@
 #include "../libft/libft.h"
 #include <mlx.h>
 
-/*A regler
-#include <stdio.h>
-void *malloc(size_t n)
-{
-    static int i;
-
-    i++;
-    if (i > 0)
-        return (NULL);
-    //else
-	printf("%d\n", i);
-	return (valloc(n));
-}
-*/
-
 static int		close_window(t_data *data)
 {
 	free_map(data->map.map, data->map.height);
