@@ -54,6 +54,8 @@ static int	fill_map(t_map *map, char *line)
 	static int	i = 0;
 	int			j;
 
+	if (!map->map || !line)
+		function_problem(1);
 	j = -1;
 	while (++j < map->width)
 	{

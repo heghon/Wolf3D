@@ -69,7 +69,7 @@ static void	init_tex(t_mlx *mlx)
 	mlx->texpic[3] = mlx_get_data_addr(mlx->tex[3], &(mlx->bpp), &(mlx->s_line),
 			&(mlx->endian));
 	if ((mlx->tex[4] = mlx_xpm_file_to_image(mlx->ptr, FILE5, &i, &i)) == NULL)
-		function_problem(4);
+		function_problem(3);
 	mlx->texpic[4] = mlx_get_data_addr(mlx->tex[4], &(mlx->bpp), &(mlx->s_line),
 			&(mlx->endian));
 }

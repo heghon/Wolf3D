@@ -34,6 +34,7 @@ void	teleportation(t_data *data, t_player *player, int **map)
 			}
 		}
 	}
-	init(data);
+	player->pos[X] = 1;
+	player->pos[Y] = 1;
 	teleportation(data, player, map);
 }
