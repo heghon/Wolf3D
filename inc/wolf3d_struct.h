@@ -6,7 +6,7 @@
 /*   By: bmenant <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/17 13:22:07 by bmenant           #+#    #+#             */
-/*   Updated: 2019/08/03 14:01:39 by bmenant          ###   ########.fr       */
+/*   Updated: 2019/08/29 20:57:25 by bmenant          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ typedef struct		s_map
 	int				**map;
 	int				width;
 	int				height;
+	int				t_counter;
 }					t_map;
 
 typedef struct		s_data

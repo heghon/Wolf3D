@@ -6,7 +6,7 @@
 /*   By: bmenant <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/25 13:55:00 by bmenant           #+#    #+#             */
-/*   Updated: 2019/08/03 13:35:37 by bmenant          ###   ########.fr       */
+/*   Updated: 2019/08/29 21:11:03 by sseneca          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,11 @@ void			function_problem(int mode)
 	else if (mode == 1)
 		ft_putendl("An issue occured while opening the file.");
 	else if (mode == 2)
-		ft_putendl("Your map should be a closed and not filled rectangle.");
+	{
+		ft_putendl("This map isn't valid.");
+		ft_putendl("It should be a closed and not filled rectangle.");
+		ft_putendl("Or it's too big.");
+	}
 	else if (mode == 3)
 		ft_putendl("An issue occured while opening the images.");
 	exit(EXIT_FAILURE);

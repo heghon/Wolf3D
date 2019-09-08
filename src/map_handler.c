@@ -6,7 +6,7 @@
 /*   By: bmenant <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/22 16:06:13 by bmenant           #+#    #+#             */
-/*   Updated: 2019/08/03 13:40:30 by bmenant          ###   ########.fr       */
+/*   Updated: 2019/08/29 21:00:12 by bmenant          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ static int	fill_map(t_map *map, char *line)
 		map->map[i][j] = (line[j] == 'W' ? 1 : 0);
 		map->map[i][j] = (line[j] == 'S' ? 2 : map->map[i][j]);
 		map->map[i][j] = (line[j] == 'T' ? 3 : map->map[i][j]);
+		map->t_counter += (line[j] == 'T' ? 1 : 0);
 	}
 	i++;
 	return (1);
@@ -77,12 +78,13 @@ static void	map_handler2(t_map *map, char *str)
 	char	*line;
 	int		test;
 
+	map->t_counter = 0;
 	map->map = ft_double_tab_int(map->height, map->width);
 	if ((fd = open(str, O_RDONLY)) == -1)
 		function_problem(1);
 	while ((test = get_next_line(fd, &line)) == 1 && fill_map(map, line))
 		free(line);
-	if (test == -1)
+	if (test == -1 || map->t_counter == 1)
 		function_problem(2);
 	close(fd);
 	map_check(map->map, map->width, map->height);

@@ -6,7 +6,7 @@
 /*   By: bmenant <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/25 14:04:17 by bmenant           #+#    #+#             */
-/*   Updated: 2019/08/03 13:40:05 by bmenant          ###   ########.fr       */
+/*   Updated: 2019/09/08 12:01:31 by bmenant          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ static int	init_position(t_map *map, t_player *player)
 		{
 			if (map->map[i][j] == 0)
 			{
-				player->pos[X] = j + 0.5;
-				player->pos[Y] = i + 0.5;
+				player->pos[X] = i + 0.5;
+				player->pos[Y] = j + 0.5;
 				return (0);
 			}
 		}
